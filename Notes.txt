@@ -1,0 +1,23 @@
+User
+Category
+Finance
+Order
+Product
+Storage
+
+User (Kullanýcý sisteme girer (tipleri olur 2 tane düþünüldü Depo sahibi ve Müþteri olarak))
+
+Order (Sipariþ verilir, ürün takip sisteminde bu ürünün hangi depolarda olduðu da gösterilebilir
+þirket çalýþanýna)
+
+Product(Ürünler var)
+Category (Ürünün kategorisi vardýr)
+
+Storage(depo birden fazla depo olabilir bu depolarda ayný ürünler olabilir. 
+Yani bir iþletmenin birden fazla deposu olabilir
+bu depolarda da ürünlerini bulundurur farklý depolarda ayný ürünler olabilir ona
+görei þlem yapýlýr)
+
+Finance (bu þirketin bir ekonomisi var bunun da yönetilmesi gerekir
+ürün aldýðýnda veya sattýðýnda sistemde bunlarýn kaydedilmesi, kar zarar hesaplanmasý
+günlük, aylýk haftalýk hesaplar yapýlmasý gerekir. )
