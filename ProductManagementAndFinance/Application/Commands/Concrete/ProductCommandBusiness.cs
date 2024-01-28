@@ -37,5 +37,27 @@ namespace ProductManagementAndFinance.Application.Commands.Concrete
                 };
             }
         }
+
+        public DeleteProductOutputModel DeleteProduct(DeleteProductInputModel model)
+        {
+            try
+            {
+                _productRepository.Delete(model.Id);
+
+                return new DeleteProductOutputModel
+                {
+                    IsSuccess = true,
+                    Message = "Product Added Successfully"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new DeleteProductOutputModel
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
+                };
+            }
+        }
     }
 }

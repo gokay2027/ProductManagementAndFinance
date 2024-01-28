@@ -21,5 +21,12 @@ namespace ProductManagementAndFinance.Controllers
             _productCommandBusiness.AddProduct(model);
             return Ok();
         }
+
+        [HttpDelete]
+        public IActionResult DeleteProduct([FromQuery] DeleteProductInputModel model)
+        {
+            _productCommandBusiness.DeleteProduct(model);
+            return Ok();
+        }
     }
 }

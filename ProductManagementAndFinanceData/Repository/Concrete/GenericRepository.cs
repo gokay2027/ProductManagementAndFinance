@@ -1,6 +1,7 @@
 ﻿using Entities.AbstractEntity;
 using ProductManagementAndFinanceData.Repository.Abstract;
 using System.Data.Entity;
+using System.Linq.Expressions;
 
 namespace ProductManagementAndFinanceData.Repository.Contract
 {
@@ -21,7 +22,7 @@ namespace ProductManagementAndFinanceData.Repository.Contract
             return entity;
         }
 
-        public async Task<TEntity> Delete(int id)
+        public async Task<TEntity> Delete(Guid id)
         {
             var entity = _context.Set<TEntity>().FirstOrDefault(a => a.Id.Equals(id));
             entity.Delete();
@@ -30,7 +31,7 @@ namespace ProductManagementAndFinanceData.Repository.Contract
             return entity;
         }
 
-        public async Task<TEntity> GetById(int id)
+        public async Task<TEntity> GetById(Guid id)
         {
             return _context.Set<TEntity>().FirstOrDefault(a => a.Id.Equals(id));
         }
@@ -38,6 +39,11 @@ namespace ProductManagementAndFinanceData.Repository.Contract
         public Task<List<TEntity>> GetAll()
         {
             return _context.Set<TEntity>().ToListAsync();
+        }
+
+        public async Task<List<TEntity>> GetByFilter(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _context.Set<TEntity>().Where(predicate).ToList();
         }
 
         public async Task<TEntity> Update(TEntity entity)

@@ -5,8 +5,6 @@ namespace ProductManagementAndFinance.Application.Commands.Abstract
     public interface IProductCommandBusiness
     {
         AddProductOutputModel AddProduct(AddProductModel model);
-
-        
-
+        DeleteProductOutputModel DeleteProduct(DeleteProductInputModel model);
     }
 }

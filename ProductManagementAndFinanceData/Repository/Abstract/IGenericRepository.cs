@@ -1,10 +1,5 @@
 ﻿using Entities.AbstractEntity.AbstractEntityRule;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace ProductManagementAndFinanceData.Repository.Abstract
 {
@@ -12,12 +7,14 @@ namespace ProductManagementAndFinanceData.Repository.Abstract
     {
         Task<List<TEntity>> GetAll();
 
-        Task<TEntity> GetById(int id);
+        Task<TEntity> GetById(Guid id);
 
         Task<TEntity> Add(TEntity entity);
 
         Task<TEntity> Update(TEntity entity);
 
-        Task<TEntity> Delete(int id);
+        Task<TEntity> Delete(Guid id);
+
+        Task<List<TEntity>> GetByFilter(Expression<Func<TEntity, bool>> predicate);
     }
 }
