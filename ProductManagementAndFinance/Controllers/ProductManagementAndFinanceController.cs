@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using ProductManagementAndFinance.Application.Commands.Abstract;
+using ProductManagementAndFinance.Application.Queries.Abstract;
 using ProductManagementAndFinance.Models.Command.Product;
+using ProductManagementAndFinance.Models.Query;
 
 namespace ProductManagementAndFinance.Controllers
 {
@@ -9,10 +11,12 @@ namespace ProductManagementAndFinance.Controllers
     public class ProductManagementAndFinanceController : ControllerBase
     {
         private readonly IProductCommandBusiness _productCommandBusiness;
+        private readonly IProductQuery _productQuery;
 
-        public ProductManagementAndFinanceController(IProductCommandBusiness productCommandBusiness)
+        public ProductManagementAndFinanceController(IProductCommandBusiness productCommandBusiness, IProductQuery productQuery)
         {
             _productCommandBusiness = productCommandBusiness;
+            _productQuery = productQuery;
         }
 
         [HttpPost]
@@ -27,6 +31,12 @@ namespace ProductManagementAndFinance.Controllers
         {
             _productCommandBusiness.DeleteProduct(model);
             return Ok();
+        }
+
+        [HttpGet]
+        public Task<List<GetAllProductsOutputModel>> GetAllProducts()
+        {
+            return _productQuery.GetAllProducts();
         }
     }
 }

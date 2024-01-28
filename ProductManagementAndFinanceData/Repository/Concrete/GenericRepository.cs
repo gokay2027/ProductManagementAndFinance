@@ -18,7 +18,7 @@ namespace ProductManagementAndFinanceData.Repository.Contract
         {
             _context.Set<TEntity>().Add(entity);
             _context.SaveChanges();
-
+           
             return entity;
         }
 
@@ -36,9 +36,9 @@ namespace ProductManagementAndFinanceData.Repository.Contract
             return _context.Set<TEntity>().FirstOrDefault(a => a.Id.Equals(id));
         }
 
-        public Task<List<TEntity>> GetAll()
+        public async Task<List<TEntity>> GetAll()
         {
-            return _context.Set<TEntity>().ToListAsync();
+            return _context.Set<TEntity>().ToList();
         }
 
         public async Task<List<TEntity>> GetByFilter(Expression<Func<TEntity, bool>> predicate)

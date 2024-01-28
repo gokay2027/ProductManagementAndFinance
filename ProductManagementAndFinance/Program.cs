@@ -1,5 +1,7 @@
 using ProductManagementAndFinance.Application.Commands.Abstract;
 using ProductManagementAndFinance.Application.Commands.Concrete;
+using ProductManagementAndFinance.Application.Queries.Abstract;
+using ProductManagementAndFinance.Application.Queries.Concrete;
 using ProductManagementAndFinanceData;
 using ProductManagementAndFinanceData.Repository.Abstract;
 using ProductManagementAndFinanceData.Repository.Contract;
@@ -24,6 +26,7 @@ builder.Services.AddTransient<IProductRepository, ProductRepository>();
 builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
 //Business Services
 builder.Services.AddTransient<IProductCommandBusiness, ProductCommandBusiness>();
+builder.Services.AddTransient<IProductQuery, ProductQuery>();
 
 var app = builder.Build();
 
