@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using ProductManagementAndFinance.Application.Commands.Abstract;
-using ProductManagementAndFinance.Application.Commands.Concrete;
 using ProductManagementAndFinance.Models.Command.Product;
 
 namespace ProductManagementAndFinance.Controllers
@@ -9,17 +8,17 @@ namespace ProductManagementAndFinance.Controllers
     [Route("[controller]/[action]")]
     public class ProductManagementAndFinanceController : ControllerBase
     {
-        private readonly IProductCommandBusiness _productRepository;
+        private readonly IProductCommandBusiness _productCommandBusiness;
 
         public ProductManagementAndFinanceController(IProductCommandBusiness productCommandBusiness)
         {
-            _productRepository = productCommandBusiness;
+            _productCommandBusiness = productCommandBusiness;
         }
 
         [HttpPost]
         public IActionResult AddProduct([FromQuery] AddProductModel model)
         {
-            _productRepository.AddProduct(model);
+            _productCommandBusiness.AddProduct(model);
             return Ok();
         }
     }
