@@ -1,15 +1,15 @@
 ﻿using Entities.ConcreteEntity;
 using ProductManagementAndFinance.Application.Commands.Abstract;
 using ProductManagementAndFinance.Models.Command.Product;
-using ProductManagementAndFinanceData.Repository.Abstract;
+using ProductManagementAndFinanceData.Repository.EntityRepository.Abstract;
 
 namespace ProductManagementAndFinance.Application.Commands.Concrete
 {
     public class ProductCommandBusiness : IProductCommandBusiness
     {
-        private readonly IRepository<Product> _productRepository;
+        private readonly IProductRepository _productRepository;
 
-        public ProductCommandBusiness(IRepository<Product> productRepository)
+        public ProductCommandBusiness(IProductRepository productRepository)
         {
             _productRepository = productRepository;
         }
@@ -18,7 +18,7 @@ namespace ProductManagementAndFinance.Application.Commands.Concrete
         {
             try
             {
-                var product = new Product(model.Name, model.Description, model.Price, model.PriceCurrency, model.CategoryId, model.StorageId);
+                var product = new Product(model.Name, model.Description, model.Price, model.PriceCurrency);
 
                 _productRepository.Add(product);
 
@@ -30,14 +30,12 @@ namespace ProductManagementAndFinance.Application.Commands.Concrete
             }
             catch (Exception ex)
             {
-
                 return new AddProductOutputModel
                 {
                     IsSuccess = false,
                     Message = ex.Message
                 };
-            } 
-            
+            }
         }
     }
 }

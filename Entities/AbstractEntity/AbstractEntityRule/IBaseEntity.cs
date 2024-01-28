@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.AbstractEntity.AbstractEntityRule
 {
-    public interface IAbstractEntityRule
+    public interface IBaseEntity
     {
         void SetUpdateDate();
     }

@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace ProductManagementAndFinanceData.Repository.Abstract
 {
-    public interface IRepository<T> where T : class
+    public interface IGenericRepository<TEntity> where TEntity : IBaseEntity
     {
-        Task<List<T>> GetAll();
+        Task<List<TEntity>> GetAll();
 
-        Task<T> Get(int id);
+        Task<TEntity> GetById(int id);
 
-        Task<T> Add(T entity);
+        Task<TEntity> Add(TEntity entity);
 
-        Task<T> Update(T entity);
+        Task<TEntity> Update(TEntity entity);
 
-        Task<T> Delete(int id);
+        Task<TEntity> Delete(int id);
     }
 }
