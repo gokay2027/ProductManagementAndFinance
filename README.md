@@ -1,3 +1,5 @@
+**PREPARED ERP MODULE ARCHITECTURE FOR .NET**
+
 Nowadays we are trying to find a shortcut to save time and money while developing modules for software. So as I researched, the ERP sector, some kind of the modules
 were given as prepared and making some little changes helps the companies save time and money only for specific software technologies i.e SAP, ORACLE, ABAP, etc.
 so I thought that why .NET does not have prepared modules for the ERP solutions so, created a path to develop a Finance and Product management module for a company,
