@@ -1,4 +1,3 @@
-using Entities.ConcreteEntity;
 using ProductManagementAndFinance.Application.Commands.Abstract;
 using ProductManagementAndFinance.Application.Commands.Concrete;
 using ProductManagementAndFinanceData;
@@ -16,12 +15,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Context injection
 builder.Services.AddDbContext<ProductManagementAndFinanceContext>();
-
+//Generic repository
 builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddTransient<IProductRepository,ProductRepository>();
-builder.Services.AddTransient<ICategoryRepository,CategoryRepository>();
-builder.Services.AddTransient<IProductCommandBusiness,ProductCommandBusiness>();
+//Base Repositories
+builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<ICategoryRepository, CategoryRepository>();
+//Business Services
+builder.Services.AddTransient<IProductCommandBusiness, ProductCommandBusiness>();
 
 var app = builder.Build();
 
