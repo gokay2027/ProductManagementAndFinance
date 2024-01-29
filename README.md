@@ -5,7 +5,7 @@ were given as prepared and making some little changes helps the companies save t
 so I thought that why .NET does not have prepared modules for the ERP solutions so, created a path to develop a Finance and Product management module for a company,
 this module is considered easy to develop and prepare core properties.
 
-In the future, more features can be added and I want it to be the first step in he prepared modules for .NET ERP solutions.
+In the future, more features can be added and I want it to be the first step prepared modules for .NET ERP solutions.
 
 In the future not only for Product and Finance, it might be developed as Customer management, Human resources, Currency and Bank processes, Production Following,
 Ship and Container Management, Accounting and Logistics.
