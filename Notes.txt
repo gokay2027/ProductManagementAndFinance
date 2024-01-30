@@ -5,19 +5,25 @@ Order
 Product
 Storage
 
-User (Kullanıcı sisteme girer (tipleri olur 2 tane düşünüldü Depo sahibi ve Müşteri olarak))
+User (KullanÄ±cÄ± sisteme girer (tipleri olur 2 tane dÃ¼ÅŸÃ¼nÃ¼ldÃ¼ Depo sahibi ve MÃ¼ÅŸteri olarak))
 
-Order (Sipariş verilir, ürün takip sisteminde bu ürünün hangi depolarda olduğu da gösterilebilir
-şirket çalışanına)
+Order (SipariÅŸ verilir, Ã¼rÃ¼n takip sisteminde bu Ã¼rÃ¼nÃ¼n hangi depolarda olduÄŸu da gÃ¶sterilebilir
+ÅŸirket Ã§alÄ±ÅŸanÄ±na)
 
-Product(Ürünler var)
-Category (Ürünün kategorisi vardır)
+Product(ÃœrÃ¼nler var)
+Category (ÃœrÃ¼nÃ¼n kategorisi vardÄ±r)
 
-Storage(depo birden fazla depo olabilir bu depolarda aynı ürünler olabilir. 
-Yani bir işletmenin birden fazla deposu olabilir
-bu depolarda da ürünlerini bulundurur farklı depolarda aynı ürünler olabilir ona
-görei şlem yapılır)
+Storage(depo birden fazla depo olabilir bu depolarda aynÄ± Ã¼rÃ¼nler olabilir. 
+Yani bir iÅŸletmenin birden fazla deposu olabilir
+bu depolarda da Ã¼rÃ¼nlerini bulundurur farklÄ± depolarda aynÄ± Ã¼rÃ¼nler olabilir ona
+gÃ¶rei ÅŸlem yapÄ±lÄ±r)
 
-Finance (bu şirketin bir ekonomisi var bunun da yönetilmesi gerekir
-ürün aldığında veya sattığında sistemde bunların kaydedilmesi, kar zarar hesaplanması
-günlük, aylık haftalık hesaplar yapılması gerekir. )
+Finance (bu ÅŸirketin bir ekonomisi var bunun da yÃ¶netilmesi gerekir
+Ã¼rÃ¼n aldÄ±ÄŸÄ±nda veya sattÄ±ÄŸÄ±nda sistemde bunlarÄ±n kaydedilmesi, kar zarar hesaplanmasÄ±
+gÃ¼nlÃ¼k, aylÄ±k haftalÄ±k hesaplar yapÄ±lmasÄ± gerekir. )
+
+
+Predicate builder
+Validation
+Authorization
+Deployment
