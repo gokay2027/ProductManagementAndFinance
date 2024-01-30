@@ -34,7 +34,7 @@ namespace ProductManagementAndFinance.Controllers
         }
 
         [HttpGet]
-        public Task<List<GetAllProductsOutputModel>> GetAllProducts()
+        public Task<ProductOutputModel> GetAllProducts()
         {
             return _productQuery.GetAllProducts();
         }

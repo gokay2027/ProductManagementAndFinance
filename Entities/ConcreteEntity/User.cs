@@ -4,20 +4,19 @@ namespace Entities.ConcreteEntity
 {
     public class User : BaseEntity
     {
-        public string? UserName { get; private set; }
-        public string? Name { get; private set; }
-        public string? Surname { get; private set; }
-        public string? Email { get; private set; }
-        public string? Password { get; private set; }
+        public string UserName { get; private set; }
+        public string Name { get; private set; }
+        public string Surname { get; private set; }
+        public string Email { get; private set; }
+        public string Password { get; private set; }
 
         //Has
         public List<Storage> Storages { get; private set; } = new List<Storage>();
+
         public List<Order> Orders { get; private set; } = new List<Order>();
 
-        public Guid? FinanceId { get; private set; }
-        public Finance? Finance { get; private set; }
-
-
+        public Guid FinanceId { get; private set; }
+        public Finance Finance { get; private set; }
 
         public User()
         { }

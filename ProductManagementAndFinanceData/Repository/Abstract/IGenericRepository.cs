@@ -1,4 +1,5 @@
 ﻿using Entities.AbstractEntity.AbstractEntityRule;
+using System.Data.Entity;
 using System.Linq.Expressions;
 
 namespace ProductManagementAndFinanceData.Repository.Abstract
@@ -7,7 +8,7 @@ namespace ProductManagementAndFinanceData.Repository.Abstract
     {
         Task<List<TEntity>> GetAll();
 
-        Task<TEntity> GetById(Guid id);
+        Task<TEntity> GetById(Guid? id);
 
         Task<TEntity> Add(TEntity entity);
 

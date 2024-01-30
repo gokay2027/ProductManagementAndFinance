@@ -1,43 +1,54 @@
 ﻿using ProductManagementAndFinance.Application.Queries.Abstract;
 using ProductManagementAndFinance.Models.Query;
 using ProductManagementAndFinanceData.Repository.EntityRepository.Abstract;
-using System.Collections.Generic;
 
 namespace ProductManagementAndFinance.Application.Queries.Concrete
 {
     public class ProductQuery : IProductQuery
     {
         private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly IStorageRepository _storageRepository;
 
-        public ProductQuery(IProductRepository productRepository)
+        public ProductQuery(IProductRepository productRepository, ICategoryRepository categoryRepository, IStorageRepository storageRepository)
         {
             _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
+            _storageRepository = storageRepository;
         }
 
-        public async Task<List<GetAllProductsOutputModel>> GetAllProducts()
+        public async Task<ProductOutputModel> GetAllProducts()
         {
+            var output = new ProductOutputModel();
+
             try
             {
-                var outputList = new List<GetAllProductsOutputModel>();
                 var allProducts = await _productRepository.GetAll();
 
                 foreach (var product in allProducts)
                 {
-                    outputList.Add(new GetAllProductsOutputModel
+                    var categoryOfProduct = await _categoryRepository.GetById(product.CategoryId);
+                    var storageOfProduct = await _storageRepository.GetById(product.CategoryId);
+
+                    output.OutputList.Add(new ProductListOutputModel
                     {
                         Name = product.Name,
                         Description = product.Description,
                         Price = product.Price,
                         PriceCurrency = product.PriceCurrency,
-                        CategoryName = null,
-                        StorageName = null,
+                        CategoryName = categoryOfProduct == null ? null : categoryOfProduct.Name,
+                        StorageName = storageOfProduct == null ? null : storageOfProduct.Name,
                     });
                 }
-                return outputList;
+                output.IsSuccess = true;
+                output.Message = "Products Queried Successfully";
+                return output;
             }
             catch (Exception ex)
             {
-                return new List<GetAllProductsOutputModel>();
+                output.IsSuccess = false;
+                output.Message = ex.Message;
+                return output;
             }
         }
     }

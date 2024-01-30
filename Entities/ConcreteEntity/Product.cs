@@ -12,7 +12,7 @@ namespace Entities.ConcreteEntity
         //Owned
         public Guid? CategoryId { get; private set; }
 
-        public Category Category { get; private set; }
+        public Category? Category { get; private set; }
 
         public Guid? StorageId { get; private set; }
         public Storage? Storage { get; private set; }
