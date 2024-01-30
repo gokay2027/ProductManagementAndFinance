@@ -15,8 +15,8 @@ namespace ProductManagementAndFinance.Controllers
         private readonly ICategoryQuery _categoryQuery;
 
         public ProductManagementAndFinanceController(
-            ICategoryQuery categoryQuery, 
-            IProductCommandBusiness productCommandBusiness, 
+            ICategoryQuery categoryQuery,
+            IProductCommandBusiness productCommandBusiness,
             IProductQuery productQuery)
         {
             _productCommandBusiness = productCommandBusiness;
@@ -48,6 +48,12 @@ namespace ProductManagementAndFinance.Controllers
         public Task<CategoryListOutputModel> GetAllCategories()
         {
             return _categoryQuery.GetAllCategories();
+        }
+
+        [HttpGet]
+        public Task<ProductOutputModel> GetProductsByFilter([FromQuery] ProductSearchModel searchModel)
+        {
+            return _productQuery.GetProductsByFilter(searchModel);
         }
     }
 }

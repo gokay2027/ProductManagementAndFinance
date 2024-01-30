@@ -4,10 +4,10 @@ namespace Entities.ConcreteEntity
 {
     public class Product : BaseEntity
     {
-        public string? Name { get; private set; }
-        public string? Description { get; private set; }
-        public float? Price { get; private set; }
-        public string? PriceCurrency { get; private set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public float Price { get; private set; }
+        public string PriceCurrency { get; private set; }
 
         //Owned
         public Guid? CategoryId { get; private set; }
