@@ -33,7 +33,7 @@ builder.Services.AddTransient<IFinanceRepository, FinanceRepository>();
 //Business Services
 builder.Services.AddTransient<IProductCommandBusiness, ProductCommandBusiness>();
 builder.Services.AddTransient<IProductQuery, ProductQuery>();
-
+builder.Services.AddTransient<ICategoryQuery, CategoryQuery>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
