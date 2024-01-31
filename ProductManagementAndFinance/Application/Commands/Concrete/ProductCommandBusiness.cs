@@ -59,5 +59,9 @@ namespace ProductManagementAndFinance.Application.Commands.Concrete
                 };
             }
         }
+
+
+        
+
     }
 }

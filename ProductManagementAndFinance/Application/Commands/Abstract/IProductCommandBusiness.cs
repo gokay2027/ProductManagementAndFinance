@@ -6,5 +6,8 @@ namespace ProductManagementAndFinance.Application.Commands.Abstract
     {
         AddProductOutputModel AddProduct(AddProductModel model);
         DeleteProductOutputModel DeleteProduct(DeleteProductInputModel model);
+    
+        
+    
     }
 }

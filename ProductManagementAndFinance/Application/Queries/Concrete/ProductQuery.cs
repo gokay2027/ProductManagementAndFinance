@@ -62,25 +62,7 @@ namespace ProductManagementAndFinance.Application.Queries.Concrete
             var output = new ProductOutputModel();
             try
             {
-                var predicate = PredicateBuilder.New<Product>();
-
-                if (!searchModel.Name.IsNullOrEmpty())
-                    predicate.And(a => a.Name.Contains(searchModel.Name));
-
-                if (!searchModel.Description.IsNullOrEmpty())
-                    predicate.And(a => a.Description.Contains(searchModel.Description));
-
-                if (!searchModel.PriceCurrency.IsNullOrEmpty())
-                    predicate.And(a => a.PriceCurrency.Equals(searchModel.PriceCurrency));
-
-                if (searchModel.Price.HasValue)
-                    predicate.And(a => a.Price.Equals(searchModel.Price));
-
-                if (searchModel.StorageId.HasValue)
-                    predicate.And(a => a.StorageId.Equals(searchModel.StorageId));
-
-                if (searchModel.CategoryId.HasValue)
-                    predicate.And(a => a.StorageId.Equals(searchModel.CategoryId));
+                var predicate = FilterBuilderForQuery(searchModel);
 
                 var filteredProducts = await _productRepository.GetByFilter(predicate);
 
@@ -110,6 +92,31 @@ namespace ProductManagementAndFinance.Application.Queries.Concrete
                 output.ItemCount = 0;
                 return output;
             }
+        }
+
+        private static ExpressionStarter<Product> FilterBuilderForQuery(ProductSearchModel searchModel)
+        {
+            var predicate = PredicateBuilder.New<Product>();
+
+            if (!searchModel.Name.IsNullOrEmpty())
+                predicate.And(a => a.Name.Contains(searchModel.Name));
+
+            if (!searchModel.Description.IsNullOrEmpty())
+                predicate.And(a => a.Description.Contains(searchModel.Description));
+
+            if (!searchModel.PriceCurrency.IsNullOrEmpty())
+                predicate.And(a => a.PriceCurrency.Equals(searchModel.PriceCurrency));
+
+            if (searchModel.Price.HasValue)
+                predicate.And(a => a.Price.Equals(searchModel.Price));
+
+            if (searchModel.StorageId.HasValue)
+                predicate.And(a => a.StorageId.Equals(searchModel.StorageId));
+
+            if (searchModel.CategoryId.HasValue)
+                predicate.And(a => a.StorageId.Equals(searchModel.CategoryId));
+
+            return predicate;
         }
     }
 }
