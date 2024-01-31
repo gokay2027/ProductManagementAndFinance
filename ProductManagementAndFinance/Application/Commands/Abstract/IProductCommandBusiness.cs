@@ -9,20 +9,20 @@ namespace ProductManagementAndFinance.Application.Commands.Abstract
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        AddProductOutputModel AddProduct(AddProductModel model);
+        Task<AddProductOutputModel> AddProduct(AddProductModel model);
 
         /// <summary>
         /// Deletes Product (Changes the IsActive Status)
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        DeleteProductOutputModel DeleteProduct(DeleteProductInputModel model);
+        Task<DeleteProductOutputModel> DeleteProduct(DeleteProductInputModel model);
 
         /// <summary>
         /// Updates Product
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        UpdateProductOutputModel UpdateProduct(UpdateProductModel model);
+        Task<UpdateProductOutputModel> UpdateProduct(UpdateProductModel model);
     }
 }

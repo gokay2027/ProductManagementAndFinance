@@ -35,6 +35,7 @@ namespace ProductManagementAndFinance.Application.Queries.Concrete
 
                     output.OutputList.Add(new ProductListOutputModel
                     {
+                        Id = product.Id,
                         Name = product.Name,
                         Description = product.Description,
                         Price = product.Price,
@@ -72,6 +73,7 @@ namespace ProductManagementAndFinance.Application.Queries.Concrete
                     var storageOfProduct = await _storageRepository.GetById(product.CategoryId);
                     output.OutputList.Add(new ProductListOutputModel
                     {
+                        Id = product.Id,
                         Name = product.Name,
                         Description = product.Description,
                         Price = product.Price,

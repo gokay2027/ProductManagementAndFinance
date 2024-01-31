@@ -55,5 +55,11 @@ namespace ProductManagementAndFinance.Controllers
         {
             return _productQuery.GetProductsByFilter(searchModel);
         }
+
+        [HttpPut]
+        public Task<UpdateProductOutputModel> UpdateProduct([FromQuery] UpdateProductModel model)
+        {
+            return _productCommandBusiness.UpdateProduct(model);
+        }
     }
 }

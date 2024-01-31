@@ -24,6 +24,7 @@ namespace ProductManagementAndFinance.Application.Queries.Concrete
                 {
                     output.List.Add(new CategoryListModel
                     {
+                        Id=category.Id,
                         Description = category.Description,
                         Name = category.Name,
                     });

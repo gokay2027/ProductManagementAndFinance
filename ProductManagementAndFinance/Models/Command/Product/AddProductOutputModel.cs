@@ -2,7 +2,7 @@
 
 namespace ProductManagementAndFinance.Models.Command.Product
 {
-    public class AddProductOutputModel : OutputModelCommand
+    public class AddProductOutputModel : BaseCommandOutputModel
     {
     }
 }

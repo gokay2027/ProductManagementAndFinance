@@ -14,13 +14,13 @@ namespace ProductManagementAndFinance.Application.Commands.Concrete
             _productRepository = productRepository;
         }
 
-        public AddProductOutputModel AddProduct(AddProductModel model)
+        public async Task<AddProductOutputModel> AddProduct(AddProductModel model)
         {
             try
             {
                 var product = new Product(model.Name, model.Description, model.Price, model.PriceCurrency);
 
-                _productRepository.Add(product);
+                await _productRepository.Add(product);
 
                 return new AddProductOutputModel
                 {
@@ -38,11 +38,11 @@ namespace ProductManagementAndFinance.Application.Commands.Concrete
             }
         }
 
-        public DeleteProductOutputModel DeleteProduct(DeleteProductInputModel model)
+        public async Task<DeleteProductOutputModel> DeleteProduct(DeleteProductInputModel model)
         {
             try
             {
-                _productRepository.Delete(model.Id);
+                await _productRepository.Delete(model.Id);
 
                 return new DeleteProductOutputModel
                 {
@@ -60,10 +60,27 @@ namespace ProductManagementAndFinance.Application.Commands.Concrete
             }
         }
 
-        public UpdateProductOutputModel UpdateProduct(UpdateProductModel model)
+        public async Task<UpdateProductOutputModel> UpdateProduct(UpdateProductModel model)
         {
-            var product = _productRepository.GetById();
-            throw new NotImplementedException();
+            try
+            {
+                var product = await _productRepository.GetById(model.Id);
+                product.SetProduct(model.Name, model.Description, model.Price, model.PriceCurrency, model.CategoryId, model.StorageId);
+                await _productRepository.Update(product);
+                return new UpdateProductOutputModel
+                {
+                    IsSuccess = true,
+                    Message = "Product Updated Successfully"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new UpdateProductOutputModel
+                {
+                    IsSuccess = false,
+                    Message = ex.InnerException.Message
+                };
+            }
         }
     }
 }

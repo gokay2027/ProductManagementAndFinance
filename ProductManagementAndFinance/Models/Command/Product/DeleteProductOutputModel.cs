@@ -2,7 +2,7 @@
 
 namespace ProductManagementAndFinance.Models.Command.Product
 {
-    public class DeleteProductOutputModel:OutputModelCommand
+    public class DeleteProductOutputModel:BaseCommandOutputModel
     {
     }
 }
