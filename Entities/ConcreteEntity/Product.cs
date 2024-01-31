@@ -11,7 +11,6 @@ namespace Entities.ConcreteEntity
 
         //Owned
         public Guid? CategoryId { get; private set; }
-
         public Category? Category { get; private set; }
 
         public Guid? StorageId { get; private set; }
@@ -19,7 +18,6 @@ namespace Entities.ConcreteEntity
 
         //Has
         public Guid? OrderId { get; private set; }
-
         public Order? Order { get; private set; }
 
         public Product()

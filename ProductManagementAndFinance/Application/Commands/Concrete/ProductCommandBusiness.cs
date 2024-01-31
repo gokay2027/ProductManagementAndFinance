@@ -60,8 +60,10 @@ namespace ProductManagementAndFinance.Application.Commands.Concrete
             }
         }
 
-
-        
-
+        public UpdateProductOutputModel UpdateProduct(UpdateProductModel model)
+        {
+            var product = _productRepository.GetById();
+            throw new NotImplementedException();
+        }
     }
 }
