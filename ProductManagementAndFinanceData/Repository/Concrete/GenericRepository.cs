@@ -1,4 +1,5 @@
 ﻿using Entities.AbstractEntity;
+using Microsoft.EntityFrameworkCore;
 using ProductManagementAndFinanceData.Repository.Abstract;
 using System.Linq.Expressions;
 
@@ -47,8 +48,8 @@ namespace ProductManagementAndFinanceData.Repository.Contract
 
         public async Task<TEntity> Update(TEntity entity)
         {
-            _context.Set<TEntity>().Update(entity);
-            await _context.SaveChangesAsync();
+            _context.Set<TEntity>().Entry(entity).State = EntityState.Modified;
+            _context.SaveChanges();
             return entity;
         }
     }

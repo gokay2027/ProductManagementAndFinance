@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProductManagementAndFinanceData;
 
@@ -11,9 +12,11 @@ using ProductManagementAndFinanceData;
 namespace ProductManagementAndFinanceData.Migrations
 {
     [DbContext(typeof(ProductManagementAndFinanceContext))]
-    partial class ProductManagementAndFinanceContextModelSnapshot : ModelSnapshot
+    [Migration("20240131184750_CategoryAndProductForeignKeySwitched")]
+    partial class CategoryAndProductForeignKeySwitched
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,7 @@ namespace ProductManagementAndFinanceData.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Entities.ConcreteEntity.Finance", b =>
@@ -82,7 +85,7 @@ namespace ProductManagementAndFinanceData.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Finances", (string)null);
+                    b.ToTable("Finances");
                 });
 
             modelBuilder.Entity("Entities.ConcreteEntity.Order", b =>
@@ -114,7 +117,7 @@ namespace ProductManagementAndFinanceData.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Entities.ConcreteEntity.Product", b =>
@@ -164,7 +167,7 @@ namespace ProductManagementAndFinanceData.Migrations
 
                     b.HasIndex("StorageId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Entities.ConcreteEntity.Storage", b =>
@@ -197,7 +200,7 @@ namespace ProductManagementAndFinanceData.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Storages", (string)null);
+                    b.ToTable("Storages");
                 });
 
             modelBuilder.Entity("Entities.ConcreteEntity.User", b =>
@@ -246,7 +249,7 @@ namespace ProductManagementAndFinanceData.Migrations
                     b.HasIndex("UserName")
                         .IsUnique();
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Entities.ConcreteEntity.Finance", b =>

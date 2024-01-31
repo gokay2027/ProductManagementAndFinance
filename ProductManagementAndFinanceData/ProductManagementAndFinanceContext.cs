@@ -23,8 +23,8 @@ namespace ProductManagementAndFinanceData
             // add your own configuration here
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new StorageConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new FinanceConfiguration());
             modelBuilder.ApplyConfiguration(new OrderConfiguration());
         }

@@ -9,6 +9,9 @@ namespace ProductManagementAndFinanceData.Configurations
         public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.HasKey(x => x.Id);
+            builder.HasMany(a => a.Products)
+                .WithOne(a => a.Category)
+                .HasForeignKey(a => a.CategoryId);
         }
     }
 }

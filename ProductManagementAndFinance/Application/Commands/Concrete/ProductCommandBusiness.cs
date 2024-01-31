@@ -65,7 +65,9 @@ namespace ProductManagementAndFinance.Application.Commands.Concrete
             try
             {
                 var product = await _productRepository.GetById(model.Id);
+                
                 product.SetProduct(model.Name, model.Description, model.Price, model.PriceCurrency, model.CategoryId, model.StorageId);
+                
                 await _productRepository.Update(product);
                 return new UpdateProductOutputModel
                 {
