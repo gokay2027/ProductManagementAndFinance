@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductManagementAndFinance", "ProductManagementAndFinance\ProductManagementAndFinance.csproj", "{138860AE-19AC-4523-AF5E-D4F4E0551E72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductManagementAndFinanceApi", "ProductManagementAndFinance\ProductManagementAndFinanceApi.csproj", "{138860AE-19AC-4523-AF5E-D4F4E0551E72}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{C13CDCEC-5708-48AB-BDB9-F87F49368CAC}"
 EndProject
