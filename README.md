@@ -15,7 +15,10 @@ So main purpose is to develop a core backend architecture for Finance and Produc
 Additional Note: The technology, libaries and patterns i used were learnt from the company i worked. I tried to use each method i learnt for a project.
 
 Libraries which were used
+- ASP.NET Core
 - EntityFrameworkCore
 - LinqKit (Filter builder)
 - FluentValidation
 - Dapper
+- NewtonSoft (Planned to use to have communication external files)
+- xUnit (For unit testing)
