@@ -1,5 +1,6 @@
 ﻿using Entities.ConcreteEntity;
 using ProductManagementAndFinance.Models.Query;
+using ProductManagementAndFinanceApi.Models.Query;
 using System.Linq.Expressions;
 
 namespace ProductManagementAndFinance.Application.Queries.Abstract
@@ -18,5 +19,20 @@ namespace ProductManagementAndFinance.Application.Queries.Abstract
         /// <param name="searchModel"></param>
         /// <returns></returns>
         Task<ProductOutputModel> GetProductsByFilter(ProductSearchModel searchModel);
+
+        /// <summary>
+        /// Gets products by storage Id 
+        /// </summary>
+        /// <param name="searchModel"></param>
+        /// <returns></returns>
+        Task<ProductOutputModel> GetProductsByStorage(ProductByStorageSearchModel searchModel);
+
+        /// <summary>
+        /// Gets Products by category
+        /// </summary>
+        /// <param name="searchModel"></param>
+        /// <returns></returns>
+        Task<ProductOutputModel?> GetProductsByCategory(ProductByCategorySearchModel searchModel);
+
     }
 }

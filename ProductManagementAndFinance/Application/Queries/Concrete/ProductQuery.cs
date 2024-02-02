@@ -3,6 +3,7 @@ using LinqKit;
 using Microsoft.IdentityModel.Tokens;
 using ProductManagementAndFinance.Application.Queries.Abstract;
 using ProductManagementAndFinance.Models.Query;
+using ProductManagementAndFinanceApi.Models.Query;
 using ProductManagementAndFinanceData.Repository.EntityRepository.Abstract;
 
 namespace ProductManagementAndFinance.Application.Queries.Concrete
@@ -121,6 +122,16 @@ namespace ProductManagementAndFinance.Application.Queries.Concrete
                 predicate.And(a => a.StorageId.Equals(searchModel.CategoryId));
 
             return predicate;
+        }
+
+        public Task<ProductOutputModel> GetProductsByStorage(ProductByStorageSearchModel searchModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ProductOutputModel?> GetProductsByCategory(ProductByCategorySearchModel searchModel)
+        {
+            throw new NotImplementedException();
         }
     }
 }
