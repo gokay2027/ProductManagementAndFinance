@@ -41,4 +41,10 @@ may cahange. In general, from "7" to "10" there is always be a loop for developi
 development loop is goes like this. As mentioned order of the steps may change. But, teams should
 obey the step orders carefully to prevent financial losts of the company.
 
+CLEAN CODE IS A GOLDEN RULE:
+- Comment lines
+- Project coding standarts
+- Regioning
+- File Architecture
+
 
