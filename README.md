@@ -33,7 +33,8 @@ WORKFLOW:
 - 7.Defining essential System business rules
 - 8.Creating Controllers for each entity or business parts
 - 9.Using Fluent Validation the businesses are validated to prevent system errors and provide reliability and security
-- 10.Using xUnitTesting - TESTING
+- 10.Using xUnitTesting - TESTING (Functions can affect each other if there is a relation, if a function or command affects other, we need to see the
+- testing errors before we build the project. It provides the system integrity)
 
   According to the software development methodologies the order of workflow may not be exact applied
 because there might always be a bug or error on the system and customer, user or team leader demands
