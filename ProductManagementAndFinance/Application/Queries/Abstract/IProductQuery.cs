@@ -32,7 +32,7 @@ namespace ProductManagementAndFinance.Application.Queries.Abstract
         /// </summary>
         /// <param name="searchModel"></param>
         /// <returns></returns>
-        Task<ProductOutputModel?> GetProductsByCategory(ProductByCategorySearchModel searchModel);
+        Task<ProductOutputModel> GetProductsByCategory(ProductByCategorySearchModel searchModel);
 
     }
 }
