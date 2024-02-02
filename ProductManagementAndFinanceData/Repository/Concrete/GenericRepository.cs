@@ -36,9 +36,9 @@ namespace ProductManagementAndFinanceData.Repository.Contract
             return _context.Set<TEntity>().FirstOrDefault(a => a.Id.Equals(id));
         }
 
-        public async Task<List<TEntity>> GetAll()
+        public async Task<IQueryable<TEntity>> GetAll()
         {
-            return _context.Set<TEntity>().ToList();
+            return _context.Set<TEntity>();
         }
 
         public async Task<IQueryable<TEntity>> GetByFilter(Expression<Func<TEntity, bool>> predicate)

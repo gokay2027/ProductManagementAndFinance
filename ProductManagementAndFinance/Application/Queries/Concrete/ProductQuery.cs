@@ -10,32 +10,20 @@ namespace ProductManagementAndFinance.Application.Queries.Concrete
     public class ProductQuery : IProductQuery
     {
         private readonly IProductRepository _productRepository;
-        private readonly ICategoryRepository _categoryRepository;
-        private readonly IStorageRepository _storageRepository;
 
-        public ProductQuery(IProductRepository productRepository, ICategoryRepository categoryRepository, IStorageRepository storageRepository)
+        public ProductQuery(IProductRepository productRepository)
         {
             _productRepository = productRepository;
-            _categoryRepository = categoryRepository;
-            _storageRepository = storageRepository;
         }
 
         public async Task<ProductOutputModel> GetAllProducts()
         {
             var output = new ProductOutputModel();
-
             try
             {
-                var allProducts = await _productRepository.GetAll();
-
-                
-
+                var allProducts = await _productRepository.GetAllProductsWithCategoryAndStorage();
                 foreach (var product in allProducts)
                 {
-                    
-                    var categoryOfProduct = await _categoryRepository.GetById(product.CategoryId);
-                    var storageOfProduct = await _storageRepository.GetById(product.CategoryId);
-
                     output.OutputList.Add(new ProductListOutputModel
                     {
                         Id = product.Id,
@@ -43,13 +31,13 @@ namespace ProductManagementAndFinance.Application.Queries.Concrete
                         Description = product.Description,
                         Price = product.Price,
                         PriceCurrency = product.PriceCurrency,
-                        CategoryName = categoryOfProduct == null ? null : categoryOfProduct.Name,
-                        StorageName = storageOfProduct == null ? null : storageOfProduct.Name,
+                        CategoryName = product.Category == null ? null : product.Category.Name,
+                        StorageName = product.Storage == null ? null : product.Storage.Name,
                     });
                 }
                 output.IsSuccess = true;
                 output.Message = "Products Queried Successfully";
-                output.ItemCount = allProducts.Count;
+                output.ItemCount = allProducts.Count();
                 return output;
             }
             catch (Exception ex)
@@ -64,17 +52,27 @@ namespace ProductManagementAndFinance.Application.Queries.Concrete
         public async Task<ProductOutputModel> GetProductsByFilter(ProductSearchModel searchModel)
         {
             var output = new ProductOutputModel();
+            var products = new List<Product>();
             try
             {
-                var predicate = FilterBuilderForQuery(searchModel);
-
-                var filteredProducts = await _productRepository.GetByFilter(predicate);
-                
-
-                foreach (var product in filteredProducts)
+                if (searchModel.Name.IsNullOrEmpty()
+                    && searchModel.Description.IsNullOrEmpty()
+                    && !searchModel.Price.HasValue
+                    && searchModel.PriceCurrency.IsNullOrEmpty()
+                    && !searchModel.CategoryId.HasValue
+                    && !searchModel.StorageId.HasValue)
                 {
-                    var categoryOfProduct = await _categoryRepository.GetById(product.CategoryId);
-                    var storageOfProduct = await _storageRepository.GetById(product.CategoryId);
+                    products.AddRange(await _productRepository.GetAllProductsWithCategoryAndStorage());
+                }
+                else
+                {
+                    var predicate = FilterBuilderForQuery(searchModel);
+
+                    products.AddRange(await _productRepository.GetFilteredProductsWithCategoryAndStorage(predicate));
+                }
+
+                foreach (var product in products)
+                {
                     output.OutputList.Add(new ProductListOutputModel
                     {
                         Id = product.Id,
@@ -82,13 +80,13 @@ namespace ProductManagementAndFinance.Application.Queries.Concrete
                         Description = product.Description,
                         Price = product.Price,
                         PriceCurrency = product.PriceCurrency,
-                        CategoryName = categoryOfProduct == null ? null : categoryOfProduct.Name,
-                        StorageName = storageOfProduct == null ? null : storageOfProduct.Name,
+                        CategoryName = product.Category == null ? null : product.Category.Name,
+                        StorageName = product.Storage == null ? null : product.Storage.Name,
                     });
                 }
                 output.IsSuccess = true;
                 output.Message = "Products Queried Successfully";
-                output.ItemCount = filteredProducts.Count;
+                output.ItemCount = products.Count();
                 return output;
             }
             catch (Exception ex)

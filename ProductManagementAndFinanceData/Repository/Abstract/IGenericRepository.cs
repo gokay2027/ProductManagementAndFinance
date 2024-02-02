@@ -5,7 +5,7 @@ namespace ProductManagementAndFinanceData.Repository.Abstract
 {
     public interface IGenericRepository<TEntity> where TEntity : class, IBaseEntity
     {
-        Task<List<TEntity>> GetAll();
+        Task<IQueryable<TEntity>> GetAll();
 
         Task<TEntity> GetById(Guid? id);
 
