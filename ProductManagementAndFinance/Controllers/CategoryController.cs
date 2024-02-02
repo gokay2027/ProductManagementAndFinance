@@ -20,6 +20,5 @@ namespace ProductManagementAndFinanceApi.Controllers
         {
             return await _categoryQuery.GetAllCategories();
         }
-
     }
 }
