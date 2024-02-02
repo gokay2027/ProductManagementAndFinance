@@ -1,6 +1,4 @@
-﻿using Entities.ConcreteEntity;
-using ProductManagementAndFinanceApi.Models.Query.Storage;
-using System.Linq.Expressions;
+﻿using ProductManagementAndFinanceApi.Models.Query.Storage;
 
 namespace ProductManagementAndFinanceApi.Application.Queries.Abstract
 {
@@ -17,6 +15,6 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Abstract
         /// </summary>
         /// <param name="predicate"></param>
         /// <returns></returns>
-        Task<StorageOutputModel> GetStoragesByFilter(Expression<Func<Storage, bool>> predicate);
+        Task<StorageOutputModel> GetStoragesByFilter(StorageSearchModel searchModel);
     }
 }
