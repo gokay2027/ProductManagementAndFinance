@@ -2,8 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProductManagementAndFinance.Application.Commands.Abstract;
 using ProductManagementAndFinance.Application.Queries.Abstract;
 using ProductManagementAndFinance.Models.Command.Product;
-using ProductManagementAndFinance.Models.Query;
-using ProductManagementAndFinanceApi.Models.Query;
+using ProductManagementAndFinanceApi.Models.Query.Product;
 
 namespace ProductManagementAndFinance.Controllers
 {

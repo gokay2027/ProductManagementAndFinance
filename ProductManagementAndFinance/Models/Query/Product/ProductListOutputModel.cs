@@ -1,6 +1,6 @@
 ﻿using ProductManagementAndFinance.Models.AbstractOutputModel.Query;
 
-namespace ProductManagementAndFinance.Models.Query
+namespace ProductManagementAndFinanceApi.Models.Query.Product
 {
     public class ProductOutputModel : BaseQueryOutputModel
     {

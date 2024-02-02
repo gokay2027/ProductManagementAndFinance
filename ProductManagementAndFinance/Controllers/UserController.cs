@@ -6,5 +6,6 @@ namespace ProductManagementAndFinanceApi.Controllers
     [Route("[controller]/[action]")]
     public class UserController : ControllerBase
     {
+
     }
 }

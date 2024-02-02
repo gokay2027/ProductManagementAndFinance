@@ -1,5 +1,5 @@
 ﻿using ProductManagementAndFinance.Application.Queries.Abstract;
-using ProductManagementAndFinance.Models.Query;
+using ProductManagementAndFinanceApi.Models.Query.Category;
 using ProductManagementAndFinanceData.Repository.EntityRepository.Abstract;
 
 namespace ProductManagementAndFinance.Application.Queries.Concrete

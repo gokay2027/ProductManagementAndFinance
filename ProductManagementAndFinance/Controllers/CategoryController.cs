@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductManagementAndFinance.Application.Queries.Abstract;
-using ProductManagementAndFinance.Models.Query;
+using ProductManagementAndFinanceApi.Models.Query.Category;
 
 namespace ProductManagementAndFinanceApi.Controllers
 {

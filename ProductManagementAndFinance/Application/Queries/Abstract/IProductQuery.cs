@@ -1,6 +1,5 @@
 ﻿using Entities.ConcreteEntity;
-using ProductManagementAndFinance.Models.Query;
-using ProductManagementAndFinanceApi.Models.Query;
+using ProductManagementAndFinanceApi.Models.Query.Product;
 using System.Linq.Expressions;
 
 namespace ProductManagementAndFinance.Application.Queries.Abstract

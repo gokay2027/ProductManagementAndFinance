@@ -1,4 +1,4 @@
-﻿using ProductManagementAndFinance.Models.Query;
+﻿using ProductManagementAndFinanceApi.Models.Query.Category;
 
 namespace ProductManagementAndFinance.Application.Queries.Abstract
 {

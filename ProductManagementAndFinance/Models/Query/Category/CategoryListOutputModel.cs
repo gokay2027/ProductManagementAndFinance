@@ -1,6 +1,6 @@
 ﻿using ProductManagementAndFinance.Models.AbstractOutputModel.Query;
 
-namespace ProductManagementAndFinance.Models.Query
+namespace ProductManagementAndFinanceApi.Models.Query.Category
 {
     public class CategoryListOutputModel : BaseQueryOutputModel
     {

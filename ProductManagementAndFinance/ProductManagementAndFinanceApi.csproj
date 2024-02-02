@@ -17,4 +17,10 @@
     <ProjectReference Include="..\ProductManagementAndFinanceData\ProductManagementAndFinanceData.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Query\Finance\" />
+    <Folder Include="Models\Query\User\" />
+    <Folder Include="Models\Query\Order\" />
+  </ItemGroup>
+
 </Project>

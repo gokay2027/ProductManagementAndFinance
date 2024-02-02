@@ -1,4 +1,4 @@
-﻿namespace ProductManagementAndFinanceApi.Models.Query
+﻿namespace ProductManagementAndFinanceApi.Models.Query.Product
 {
     public class ProductByCategorySearchModel
     {

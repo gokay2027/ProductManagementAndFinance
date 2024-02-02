@@ -2,8 +2,7 @@
 using LinqKit;
 using Microsoft.IdentityModel.Tokens;
 using ProductManagementAndFinance.Application.Queries.Abstract;
-using ProductManagementAndFinance.Models.Query;
-using ProductManagementAndFinanceApi.Models.Query;
+using ProductManagementAndFinanceApi.Models.Query.Product;
 using ProductManagementAndFinanceData.Repository.EntityRepository.Abstract;
 
 namespace ProductManagementAndFinance.Application.Queries.Concrete
