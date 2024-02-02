@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProductManagementAndFinanceApi.Application.Queries.Abstract;
+using ProductManagementAndFinanceApi.Models.Query.Storage;
 
 namespace ProductManagementAndFinanceApi.Controllers
 {
@@ -6,5 +8,17 @@ namespace ProductManagementAndFinanceApi.Controllers
     [Route("[controller]/[action]")]
     public class StorageController : ControllerBase
     {
+        private readonly IStorageQuery _storageQuery;
+
+        public StorageController(IStorageQuery storageQuery)
+        {
+            _storageQuery = storageQuery;
+        }
+
+        [HttpGet]
+        public Task<StorageOutputModel> GetAllStorages()
+        {
+            return _storageQuery.GetAllStorages();
+        }
     }
 }

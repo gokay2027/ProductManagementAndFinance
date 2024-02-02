@@ -97,13 +97,13 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
             var predicate = PredicateBuilder.New<Storage>();
 
             if (!searchModel.Name.IsNullOrEmpty())
-                predicate.And(a => a.Name.Contains(searchModel.Name));
+                predicate.And(a => a.Name.ToLower().Contains(searchModel.Name.ToLower()));
 
             if (!searchModel.Adress.IsNullOrEmpty())
-                predicate.And(a => a.Adress.Contains(searchModel.Adress));
+                predicate.And(a => a.Adress.ToLower().Contains(searchModel.Adress.ToLower()));
 
             if (!searchModel.UserName.IsNullOrEmpty())
-                predicate.And(a => a.User.Name.Equals(searchModel.UserName));
+                predicate.And(a => a.User.Name.ToLower().Contains(searchModel.UserName.ToLower()));
 
             return predicate;
         }
