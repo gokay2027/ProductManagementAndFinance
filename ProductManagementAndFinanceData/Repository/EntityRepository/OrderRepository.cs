@@ -9,5 +9,9 @@ namespace ProductManagementAndFinanceData.Repository.EntityRepository
         public OrderRepository(ProductManagementAndFinanceContext context) : base(context)
         {
         }
+        private ProductManagementAndFinanceContext ProductManagementContext
+        {
+            get { return _context; }
+        }
     }
 }

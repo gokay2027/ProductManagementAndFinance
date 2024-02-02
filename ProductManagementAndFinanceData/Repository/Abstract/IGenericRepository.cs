@@ -1,10 +1,9 @@
 ﻿using Entities.AbstractEntity.AbstractEntityRule;
-using System.Data.Entity;
 using System.Linq.Expressions;
 
 namespace ProductManagementAndFinanceData.Repository.Abstract
 {
-    public interface IGenericRepository<TEntity> where TEntity : IBaseEntity
+    public interface IGenericRepository<TEntity> where TEntity : class, IBaseEntity
     {
         Task<List<TEntity>> GetAll();
 
@@ -16,6 +15,6 @@ namespace ProductManagementAndFinanceData.Repository.Abstract
 
         Task<TEntity> Delete(Guid id);
 
-        Task<List<TEntity>> GetByFilter(Expression<Func<TEntity, bool>> predicate);
+        Task<IQueryable<TEntity>> GetByFilter(Expression<Func<TEntity, bool>> predicate);
     }
 }

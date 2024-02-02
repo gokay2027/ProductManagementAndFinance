@@ -7,7 +7,7 @@ namespace ProductManagementAndFinanceData.Repository.Contract
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
     {
-        private readonly ProductManagementAndFinanceContext _context;
+        protected readonly ProductManagementAndFinanceContext _context;
 
         protected GenericRepository(ProductManagementAndFinanceContext context)
         {
@@ -38,12 +38,12 @@ namespace ProductManagementAndFinanceData.Repository.Contract
 
         public async Task<List<TEntity>> GetAll()
         {
-            return  _context.Set<TEntity>().ToList();
+            return _context.Set<TEntity>().ToList();
         }
 
-        public async Task<List<TEntity>> GetByFilter(Expression<Func<TEntity, bool>> predicate)
+        public async Task<IQueryable<TEntity>> GetByFilter(Expression<Func<TEntity, bool>> predicate)
         {
-            return _context.Set<TEntity>().Where(predicate).ToList();
+            return _context.Set<TEntity>().Where(predicate);
         }
 
         public async Task<TEntity> Update(TEntity entity)

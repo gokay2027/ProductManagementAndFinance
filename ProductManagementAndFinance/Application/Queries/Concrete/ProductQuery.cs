@@ -28,8 +28,11 @@ namespace ProductManagementAndFinance.Application.Queries.Concrete
             {
                 var allProducts = await _productRepository.GetAll();
 
+                
+
                 foreach (var product in allProducts)
                 {
+                    
                     var categoryOfProduct = await _categoryRepository.GetById(product.CategoryId);
                     var storageOfProduct = await _storageRepository.GetById(product.CategoryId);
 
@@ -66,6 +69,7 @@ namespace ProductManagementAndFinance.Application.Queries.Concrete
                 var predicate = FilterBuilderForQuery(searchModel);
 
                 var filteredProducts = await _productRepository.GetByFilter(predicate);
+                
 
                 foreach (var product in filteredProducts)
                 {
