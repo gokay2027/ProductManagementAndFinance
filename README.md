@@ -22,3 +22,23 @@ Libraries which were used
 - Dapper
 - NewtonSoft (Planned to use to have communication external files)
 - xUnit (For unit testing)
+
+WORKFLOW:
+- 1.Creating system Entities, relations between them and base entity roots
+- 2.Thanks to entityframeworkcore, defining relations and database context
+- 3.Creating configurations and applying into the context, Enabling-migration, Adding migration, updating database
+- 4.Creating GENERIC repository pattern, defining each repository of entity
+- 5.According to CQRS, Folder architecture for Commands and Queries for each entity
+- 6.Defining Models for Command and Queries
+- 7.Defining essential System business rules
+- 8.Creating Controllers for each entity or business parts
+- 9.Using Fluent Validation the businesses are validated to prevent system errors and provide reliability and security
+- 10.Using xUnitTesting - TESTING
+
+  According to the software development methodologies the order of workflow may not be exact applied
+because there might always be a bug or error on the system and customer, user or team leader demands
+may cahange. In general, from "7" to "10" there is always be a loop for developing. And the project
+development loop is goes like this. As mentioned order of the steps may change. But, teams should
+obey the step orders carefully to prevent financial losts of the company.
+
+
