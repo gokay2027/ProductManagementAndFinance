@@ -8,7 +8,7 @@ namespace Entities.ConcreteEntity
         public string Name { get; private set; }
         public List<Product> Products { get; private set; } = new List<Product>();
 
-        public Guid UserId { get; private set; }
+        public Guid? UserId { get; private set; }
         public User User { get; private set; }
 
         public Storage()
