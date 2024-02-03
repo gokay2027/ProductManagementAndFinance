@@ -16,5 +16,13 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Abstract
         /// <param name="predicate"></param>
         /// <returns></returns>
         Task<StorageOutputModel> GetStoragesByFilter(StorageSearchModel searchModel);
+
+
+        /// <summary>
+        /// Gets Storages by product Id
+        /// </summary>
+        /// <param name="searchModel"></param>
+        /// <returns></returns>
+        Task<StorageOutputModel> GetStoragesByProduct(StorageByProductSearchModel searchModel);
     }
 }
