@@ -20,5 +20,11 @@ namespace ProductManagementAndFinanceApi.Controllers
         {
             return _storageQuery.GetAllStorages();
         }
+
+        [HttpGet]
+        public Task<StorageOutputModel> GetStoragesByFilter([FromQuery] StorageSearchModel model)
+        {
+            return _storageQuery.GetStoragesByFilter(model);
+        }
     }
 }

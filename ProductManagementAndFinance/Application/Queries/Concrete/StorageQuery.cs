@@ -10,10 +10,12 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
     public class StorageQuery : IStorageQuery
     {
         private readonly IStorageRepository _storageRepository;
+        private readonly IProductRepository _productRepository;
 
-        public StorageQuery(IStorageRepository storageRepository)
+        public StorageQuery(IStorageRepository storageRepository, IProductRepository productRepository)
         {
             _storageRepository = storageRepository;
+            _productRepository = productRepository;
         }
 
         public async Task<StorageOutputModel> GetAllStorages()
@@ -66,6 +68,39 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
 
                     storages.AddRange(await _storageRepository.GetFilteredStoragesWithUser(predicate));
                 }
+
+                foreach (var storage in storages)
+                {
+                    output.OutputList.Add(new StorageListOutputModel
+                    {
+                        Id = storage.Id,
+                        Adress = storage.Adress,
+                        Name = storage.Name,
+                        UserId = storage.UserId,
+                        UserName = storage.User.Name,
+                    });
+                }
+                output.IsSuccess = true;
+                output.Message = "Storages Queried Successfully";
+                output.ItemCount = storages.Count();
+                return output;
+            }
+            catch (Exception ex)
+            {
+                output.IsSuccess = false;
+                output.Message = ex.Message;
+                output.ItemCount = 0;
+                return output;
+            }
+        }
+
+        public async Task<StorageOutputModel> GetStoragesByProduct(StorageByProductSearchModel searchModel)
+        {
+            var output = new StorageOutputModel();
+            var storages = new List<Storage>();
+            try
+            {
+                storages.AddRange(await _storageRepository.GetFilteredStoragesWithProduct(a => a.Products.Exists(a => a.Id.Equals(searchModel))));
 
                 foreach (var storage in storages)
                 {

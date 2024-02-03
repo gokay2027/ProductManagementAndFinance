@@ -8,5 +8,6 @@ namespace ProductManagementAndFinanceData.Repository.EntityRepository.Abstract
     {
         Task<IQueryable<Storage>> GetAllStoragesWithUser();
         Task<IQueryable<Storage>> GetFilteredStoragesWithUser(Expression<Func<Storage, bool>> predicate);
+        Task<IQueryable<Storage>> GetFilteredStoragesWithProduct(Expression<Func<Storage, bool>> predicate);
     }
 }

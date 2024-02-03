@@ -19,12 +19,19 @@ namespace ProductManagementAndFinanceData.Repository.EntityRepository
 
         public async Task<IQueryable<Storage>> GetAllStoragesWithUser()
         {
-            return Context.Include(a => a.User);
+            return  Context.Include(a => a.User);
         }
 
         public async Task<IQueryable<Storage>> GetFilteredStoragesWithUser(Expression<Func<Storage, bool>> predicate)
         {
             return Context.Include(a => a.User).Where(predicate);
+        }
+
+        public async Task<IQueryable<Storage>> GetFilteredStoragesWithProduct(Expression<Func<Storage, bool>> predicate)
+        {
+            return Context.Include(a => a.User)
+                .Include(a => a.Products)
+                .Where(predicate);
         }
     }
 }
