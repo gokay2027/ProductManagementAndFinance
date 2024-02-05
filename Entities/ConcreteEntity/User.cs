@@ -40,9 +40,9 @@ namespace Entities.ConcreteEntity
             SetUpdateDate();
         }
 
-        public bool ChangeUserPassword(string userName, string password, string newPassword)
+        public bool ChangeUserPassword(string password, string newPassword)
         {
-            if (userName.Equals(UserName) && password.Equals(Password))
+            if (password.Equals(Password))
             {
                 Password = newPassword;
                 SetUpdateDate();

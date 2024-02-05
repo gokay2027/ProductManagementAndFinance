@@ -9,27 +9,27 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Abstract
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        UserAddCommandOutputModel AddUser(UserAddInputModel input);
+        Task<UserAddCommandOutputModel> AddUser(UserAddInputModel input);
 
         /// <summary>
         /// Deletes user from the system (changes isActive status)
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        UserDeleteCommandOutputModel DeleteUser(UserDeleteInputModel input);
+        Task<UserDeleteCommandOutputModel> DeleteUser(UserDeleteInputModel input);
 
         /// <summary>
         /// Updates User
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        UserUpdateCommandOutputModel UpdateUser(UserUpdateInputModel input);
+        Task<UserUpdateCommandOutputModel> UpdateUser(UserUpdateInputModel input);
 
         /// <summary>
         /// Changes password of the user
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        UserChangePasswordCommandOutputModel ChangePassword(UserChangePasswordInputModel input);
+        Task<UserChangePasswordCommandOutputModel> ChangePassword(UserChangePasswordInputModel input);
     }
 }
