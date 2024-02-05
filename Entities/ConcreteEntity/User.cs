@@ -15,7 +15,7 @@ namespace Entities.ConcreteEntity
 
         public List<Order> Orders { get; private set; } = new List<Order>();
 
-        public Guid FinanceId { get; private set; }
+        public Guid? FinanceId { get; private set; }
         public Finance Finance { get; private set; }
 
         public User()

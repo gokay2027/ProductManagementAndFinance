@@ -2,6 +2,8 @@ using ProductManagementAndFinance.Application.Commands.Abstract;
 using ProductManagementAndFinance.Application.Commands.Concrete;
 using ProductManagementAndFinance.Application.Queries.Abstract;
 using ProductManagementAndFinance.Application.Queries.Concrete;
+using ProductManagementAndFinanceApi.Application.Commands.Abstract;
+using ProductManagementAndFinanceApi.Application.Commands.Concrete;
 using ProductManagementAndFinanceApi.Application.Queries.Abstract;
 using ProductManagementAndFinanceApi.Application.Queries.Concrete;
 using ProductManagementAndFinanceData;
@@ -49,6 +51,7 @@ builder.Services.AddTransient<IFinanceRepository, FinanceRepository>();
 
 //Business Command Services
 builder.Services.AddTransient<IProductCommandBusiness, ProductCommandBusiness>();
+builder.Services.AddTransient<IUserCommandBusiness, UserCommandBusiness>();
 
 #endregion Entity Command Services Injection
 
