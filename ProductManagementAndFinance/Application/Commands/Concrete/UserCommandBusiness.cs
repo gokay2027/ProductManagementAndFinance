@@ -73,11 +73,34 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
 
         public async Task<UserDeleteCommandOutputModel> DeleteUser(UserDeleteInputModel input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await _userRepository.GetById(input.Id);
+                user.Delete();
+                await _userRepository.Update(user);
+                return new UserDeleteCommandOutputModel { IsSuccess = true, Message = "User Deleted Successfully" };
+            }
+            catch (Exception ex)
+            {
+                return new UserDeleteCommandOutputModel { IsSuccess = false, Message = ex.Message };
+            }
         }
 
         public async Task<UserUpdateCommandOutputModel> UpdateUser(UserUpdateInputModel input)
         {
+            try
+            {
+                var user = await _userRepository.GetById(input.Id);
+                user.UpdateUser(input.UserName, input.Name, input.Surname, input.Email, input.Password);
+                await _userRepository.Update(user);
+
+                return new UserUpdateCommandOutputModel { IsSuccess = true, Message = "User has been updated Successfully" };
+            }
+            catch (Exception ex)
+            {
+                return new UserUpdateCommandOutputModel { IsSuccess = false, Message = ex.Message };
+            }
+
             throw new NotImplementedException();
         }
     }
