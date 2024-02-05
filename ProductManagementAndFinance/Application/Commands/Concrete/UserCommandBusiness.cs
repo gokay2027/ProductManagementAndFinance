@@ -100,8 +100,6 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             {
                 return new UserUpdateCommandOutputModel { IsSuccess = false, Message = ex.Message };
             }
-
-            throw new NotImplementedException();
         }
     }
 }
