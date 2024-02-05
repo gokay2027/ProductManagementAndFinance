@@ -93,7 +93,7 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
                 return output;
             }
         }
-
+        //Burada sıkıntı var çöz
         public async Task<StorageOutputModel> GetStoragesByProduct(StorageByProductSearchModel searchModel)
         {
             var output = new StorageOutputModel();
