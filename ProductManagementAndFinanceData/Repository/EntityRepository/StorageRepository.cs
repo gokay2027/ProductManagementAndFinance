@@ -27,7 +27,7 @@ namespace ProductManagementAndFinanceData.Repository.EntityRepository
             return Context.Include(a => a.User).Where(predicate);
         }
 
-        public async Task<IQueryable<Storage>> GetFilteredStoragesWithProduct(Expression<Func<Storage, bool>> predicate)
+        public async Task<IQueryable<Storage>> GetFilteredStoragesWithProductAndUser(Expression<Func<Storage, bool>> predicate)
         {
             return Context.Include(a => a.User)
                 .Include(a => a.Products)

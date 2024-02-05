@@ -80,6 +80,7 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
                         UserName = storage.User.Name,
                     });
                 }
+
                 output.IsSuccess = true;
                 output.Message = "Storages Queried Successfully";
                 output.ItemCount = storages.Count();
@@ -93,26 +94,29 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
                 return output;
             }
         }
-        //Burada sıkıntı var çöz
+
         public async Task<StorageOutputModel> GetStoragesByProduct(StorageByProductSearchModel searchModel)
         {
             var output = new StorageOutputModel();
             var storages = new List<Storage>();
             try
             {
-                storages.AddRange(await _storageRepository.GetFilteredStoragesWithProduct(a => a.Products.Exists(a => a.Id.Equals(searchModel))));
+                var products = await _productRepository.GetFilteredProductsWithCategoryAndStorage(a => a.Name.Contains(searchModel.Name));
 
-                foreach (var storage in storages)
+                foreach (var product in products)
                 {
                     output.OutputList.Add(new StorageListOutputModel
                     {
-                        Id = storage.Id,
-                        Adress = storage.Adress,
-                        Name = storage.Name,
-                        UserId = storage.UserId,
-                        UserName = storage.User.Name,
+                        Id = product.Storage.Id,
+                        Adress = product.Storage.Adress,
+                        Name = product.Storage.Name,
+                        UserId = product.Storage.UserId,
+                        UserName = product.Storage.User.Name,
                     });
                 }
+
+                output.OutputList = output.OutputList.DistinctBy(a => a.Name).ToList();
+
                 output.IsSuccess = true;
                 output.Message = "Storages Queried Successfully";
                 output.ItemCount = storages.Count();
