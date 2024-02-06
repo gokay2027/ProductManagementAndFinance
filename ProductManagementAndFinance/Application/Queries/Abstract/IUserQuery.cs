@@ -4,8 +4,8 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Abstract
 {
     public interface IUserQuery
     {
-        UserSearchOutputModel Login(UserLoginModel loginModel);
-        UserSearchOutputModel SearchUser(UserSearchModel searchModel);
+        Task<UserLoginOutputModel> Login(UserLoginModel loginModel);
 
+        Task<UserSearchOutputModel> SearchUser(UserSearchModel searchModel);
     }
 }
