@@ -10,16 +10,12 @@
   <ItemGroup>
     <Compile Remove="Models\Query\Finance\**" />
     <Compile Remove="Models\Query\Order\**" />
-    <Compile Remove="Models\Query\User\**" />
     <Content Remove="Models\Query\Finance\**" />
     <Content Remove="Models\Query\Order\**" />
-    <Content Remove="Models\Query\User\**" />
     <EmbeddedResource Remove="Models\Query\Finance\**" />
     <EmbeddedResource Remove="Models\Query\Order\**" />
-    <EmbeddedResource Remove="Models\Query\User\**" />
     <None Remove="Models\Query\Finance\**" />
     <None Remove="Models\Query\Order\**" />
-    <None Remove="Models\Query\User\**" />
   </ItemGroup>
 
   <ItemGroup>
