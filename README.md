@@ -44,12 +44,9 @@ obey the step orders carefully to prevent financial losts of the company.
 
 CLEAN CODE IS A GOLDEN RULE:
 - Comment lines
-
-![image](https://github.com/gokay2027/ProductManagementAndFinance/assets/70948122/0a3f0dcb-7586-42ee-80eb-efff960fb626)
-
-
 - Project coding standarts
 - Regioning
 - File Architecture
 
+![image](https://github.com/gokay2027/ProductManagementAndFinance/assets/70948122/0a3f0dcb-7586-42ee-80eb-efff960fb626)
 
