@@ -4,11 +4,11 @@ namespace Entities.ConcreteEntity
 {
     public class Category : BaseEntity
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
 
         //Has
-        public List<Product> Products { get; set; } = new List<Product>();
+        public List<Product> Products { get; private set; } = new List<Product>();
 
         public Category()
         { }
