@@ -117,7 +117,7 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
             }
         }
 
-        private ExpressionStarter<User> FilterBuilderForUserSearch(UserSearchModel searchModel)
+        private static ExpressionStarter<User> FilterBuilderForUserSearch(UserSearchModel searchModel)
         {
             var predicate = PredicateBuilder.New<User>();
 
@@ -143,6 +143,5 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
 
             return predicate;
         }
-
     }
 }

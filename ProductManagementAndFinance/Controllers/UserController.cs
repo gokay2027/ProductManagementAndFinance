@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductManagementAndFinanceApi.Application.Commands.Abstract;
 using ProductManagementAndFinanceApi.Application.Queries.Abstract;
+using ProductManagementAndFinanceApi.Models.Command.User;
+using ProductManagementAndFinanceApi.Models.Query.User;
 
 namespace ProductManagementAndFinanceApi.Controllers
 {
@@ -17,6 +19,40 @@ namespace ProductManagementAndFinanceApi.Controllers
             _userQuery = userQuery;
         }
 
+        [HttpGet]
+        public async Task<UserLoginOutputModel> LoginUser([FromQuery] UserLoginModel loginModel)
+        {
+            return await _userQuery.Login(loginModel);
+        }
 
+        [HttpGet]
+        public async Task<UserSearchOutputModel> SearchUser([FromQuery] UserSearchModel searchModel)
+        {
+            return await _userQuery.SearchUser(searchModel);
+        }
+
+        [HttpPost]
+        public async Task<UserAddCommandOutputModel> AddUser([FromQuery] UserAddInputModel model)
+        {
+            return await _userCommandBusiness.AddUser(model);
+        }
+
+        [HttpDelete]
+        public async Task<UserDeleteCommandOutputModel> DeleteUser([FromQuery] UserDeleteInputModel model)
+        {
+            return await _userCommandBusiness.DeleteUser(model);
+        }
+
+        [HttpPut]
+        public async Task<UserUpdateCommandOutputModel> UpdateUser([FromQuery] UserUpdateInputModel model)
+        {
+            return await _userCommandBusiness.UpdateUser(model);
+        }
+
+        [HttpPut]
+        public async Task<UserChangePasswordCommandOutputModel> ChangePassword([FromQuery] UserChangePasswordInputModel model)
+        {
+            return await _userCommandBusiness.ChangePassword(model);
+        }
     }
 }
