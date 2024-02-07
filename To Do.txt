@@ -1,0 +1,12 @@
+
+TO DO LIST (Created: 7.02.2024)
+
+- Storage Commands
+- Finance Services
+- Order Services
+- Validation
+- Test
+- Mail Sending Command
+- Reporting Command (Billing)
+- Send report in mail
+- Tests AGAIN
