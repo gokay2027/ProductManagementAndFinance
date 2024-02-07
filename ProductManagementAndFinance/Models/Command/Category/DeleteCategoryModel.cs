@@ -2,5 +2,6 @@
 {
     public class DeleteCategoryModel
     {
+        public Guid? Id { get; set; }
     }
 }

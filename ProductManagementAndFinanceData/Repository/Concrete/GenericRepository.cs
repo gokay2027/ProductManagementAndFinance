@@ -22,7 +22,7 @@ namespace ProductManagementAndFinanceData.Repository.Contract
             return entity;
         }
 
-        public async Task<TEntity> Delete(Guid id)
+        public async Task<TEntity> Delete(Guid? id)
         {
             var entity = _context.Set<TEntity>().FirstOrDefault(a => a.Id.Equals(id));
             entity.Delete();

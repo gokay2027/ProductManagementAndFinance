@@ -13,7 +13,7 @@ namespace ProductManagementAndFinanceData.Repository.Abstract
 
         Task<TEntity> Update(TEntity entity);
 
-        Task<TEntity> Delete(Guid id);
+        Task<TEntity> Delete(Guid? id);
 
         Task<IQueryable<TEntity>> GetByFilter(Expression<Func<TEntity, bool>> predicate);
     }

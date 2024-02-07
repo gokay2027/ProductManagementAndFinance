@@ -9,20 +9,20 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Abstract
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        AddCategoryCommandOutputModel AddCategory(AddCategoryModel model);
+        Task<AddCategoryCommandOutputModel> AddCategory(AddCategoryModel model);
 
         /// <summary>
         /// Updates Category
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        UpdateCategoryOutputModel UpdateCategory(UpdateCategoryModel model);
+        Task<UpdateCategoryOutputModel> UpdateCategory(UpdateCategoryModel model);
 
         /// <summary>
         /// Deletes Category
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        DeleteCategoryCommandOutputModel DeleteCategory(DeleteCategoryModel model);
+        Task<DeleteCategoryCommandOutputModel> DeleteCategory(DeleteCategoryModel model);
     }
 }
