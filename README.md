@@ -48,4 +48,5 @@ CLEAN CODE IS A GOLDEN RULE:
 - Regioning
 - File Architecture
 
+![image](https://github.com/gokay2027/ProductManagementAndFinance/assets/70948122/0a3f0dcb-7586-42ee-80eb-efff960fb626)
 
