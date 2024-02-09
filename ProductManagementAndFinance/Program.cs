@@ -53,6 +53,7 @@ builder.Services.AddTransient<IFinanceRepository, FinanceRepository>();
 builder.Services.AddTransient<IProductCommandBusiness, ProductCommandBusiness>();
 builder.Services.AddTransient<IUserCommandBusiness, UserCommandBusiness>();
 builder.Services.AddTransient<ICategoryCommandBusiness, CategoryCommandBusiness>();
+builder.Services.AddTransient<IStorageCommandBusiness, StorageCommandBusiness>();
 
 #endregion Entity Command Services Injection
 

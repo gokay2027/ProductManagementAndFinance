@@ -6,22 +6,24 @@ namespace Entities.ConcreteEntity
     {
         public string Adress { get; private set; }
         public string Name { get; private set; }
-        public List<Product> Products { get; private set; } = new List<Product>();
+        
 
         public Guid? UserId { get; private set; }
         public User User { get; private set; }
 
+        public List<Product> Products { get; private set; } = new List<Product>();
+
         public Storage()
         { }
 
-        public Storage(string adress, string name, Guid userId)
+        public Storage(string adress, string name, Guid? userId)
         {
             Adress = adress;
             Name = name;
             UserId = userId;
         }
 
-        public void UpdateStorage(string adress, string name, Guid userId)
+        public void UpdateStorage(string adress, string name, Guid? userId)
         {
             Adress = adress;
             Name = name;

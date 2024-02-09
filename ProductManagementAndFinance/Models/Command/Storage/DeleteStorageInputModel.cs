@@ -2,5 +2,6 @@
 {
     public class DeleteStorageInputModel
     {
+        public Guid Id { get; set; }
     }
 }
