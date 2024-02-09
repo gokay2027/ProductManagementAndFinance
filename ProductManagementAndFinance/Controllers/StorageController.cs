@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProductManagementAndFinanceApi.Application.Commands.Abstract;
 using ProductManagementAndFinanceApi.Application.Queries.Abstract;
+using ProductManagementAndFinanceApi.Models.Command.Storage;
 using ProductManagementAndFinanceApi.Models.Query.Storage;
 
 namespace ProductManagementAndFinanceApi.Controllers
@@ -9,10 +11,12 @@ namespace ProductManagementAndFinanceApi.Controllers
     public class StorageController : ControllerBase
     {
         private readonly IStorageQuery _storageQuery;
+        private readonly IStorageCommandBusiness _storageCommandBusiness;
 
-        public StorageController(IStorageQuery storageQuery)
+        public StorageController(IStorageQuery storageQuery, IStorageCommandBusiness storageCommandBusiness)
         {
             _storageQuery = storageQuery;
+            _storageCommandBusiness = storageCommandBusiness;
         }
 
         [HttpGet]
@@ -31,6 +35,24 @@ namespace ProductManagementAndFinanceApi.Controllers
         public Task<StorageOutputModel> GetStoragesByProduct([FromQuery] StorageByProductSearchModel model)
         {
             return _storageQuery.GetStoragesByProduct(model);
+        }
+
+        [HttpPost]
+        public Task<AddStorageOutputModel> AddStorage([FromQuery] AddStorageInputModel inputModel)
+        {
+            return _storageCommandBusiness.AddStorage(inputModel);
+        }
+
+        [HttpPut]
+        public Task<UpdateStorageOutputModel> Updatestorage([FromQuery] UpdateStorageInputModel inputModel)
+        {
+            return _storageCommandBusiness.UpdateStorage(inputModel);
+        }
+
+        [HttpDelete]
+        public Task<DeleteStorageOutputModel> DeleteStorageInputModel([FromQuery] DeleteStorageInputModel inputModel)
+        {
+            return _storageCommandBusiness.DeleteStorage(inputModel);
         }
     }
 }
