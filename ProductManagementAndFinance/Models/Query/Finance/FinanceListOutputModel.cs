@@ -17,7 +17,5 @@ namespace ProductManagementAndFinanceApi.Models.Query.Finance
         public string? NameOfUser { get; set; }
         public string? SurnameOfUser { get; set; }
         public string? UsernameOfUser { get; set; }
-
-
     }
 }
