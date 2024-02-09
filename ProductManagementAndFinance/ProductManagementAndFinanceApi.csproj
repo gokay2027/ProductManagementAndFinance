@@ -8,17 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\Query\Finance\**" />
-    <Compile Remove="Models\Query\Order\**" />
-    <Content Remove="Models\Query\Finance\**" />
-    <Content Remove="Models\Query\Order\**" />
-    <EmbeddedResource Remove="Models\Query\Finance\**" />
-    <EmbeddedResource Remove="Models\Query\Order\**" />
-    <None Remove="Models\Query\Finance\**" />
-    <None Remove="Models\Query\Order\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="LinqKit" Version="1.2.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
