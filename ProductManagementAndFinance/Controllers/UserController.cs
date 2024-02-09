@@ -32,25 +32,25 @@ namespace ProductManagementAndFinanceApi.Controllers
         }
 
         [HttpPost]
-        public async Task<UserAddCommandOutputModel> AddUser([FromQuery] UserAddInputModel model)
+        public async Task<UserAddCommandOutputModel> AddUser([FromBody] UserAddInputModel model)
         {
             return await _userCommandBusiness.AddUser(model);
         }
 
         [HttpDelete]
-        public async Task<UserDeleteCommandOutputModel> DeleteUser([FromQuery] UserDeleteInputModel model)
+        public async Task<UserDeleteCommandOutputModel> DeleteUser([FromBody] UserDeleteInputModel model)
         {
             return await _userCommandBusiness.DeleteUser(model);
         }
 
         [HttpPut]
-        public async Task<UserUpdateCommandOutputModel> UpdateUser([FromQuery] UserUpdateInputModel model)
+        public async Task<UserUpdateCommandOutputModel> UpdateUser([FromBody] UserUpdateInputModel model)
         {
             return await _userCommandBusiness.UpdateUser(model);
         }
 
         [HttpPut]
-        public async Task<UserChangePasswordCommandOutputModel> ChangePassword([FromQuery] UserChangePasswordInputModel model)
+        public async Task<UserChangePasswordCommandOutputModel> ChangePassword([FromBody] UserChangePasswordInputModel model)
         {
             return await _userCommandBusiness.ChangePassword(model);
         }

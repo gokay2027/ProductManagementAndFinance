@@ -38,19 +38,19 @@ namespace ProductManagementAndFinanceApi.Controllers
         }
 
         [HttpPost]
-        public Task<AddStorageOutputModel> AddStorage([FromQuery] AddStorageInputModel inputModel)
+        public Task<AddStorageOutputModel> AddStorage([FromBody] AddStorageInputModel inputModel)
         {
             return _storageCommandBusiness.AddStorage(inputModel);
         }
 
         [HttpPut]
-        public Task<UpdateStorageOutputModel> Updatestorage([FromQuery] UpdateStorageInputModel inputModel)
+        public Task<UpdateStorageOutputModel> UpdateStorage([FromBody] UpdateStorageInputModel inputModel)
         {
             return _storageCommandBusiness.UpdateStorage(inputModel);
         }
 
         [HttpDelete]
-        public Task<DeleteStorageOutputModel> DeleteStorageInputModel([FromQuery] DeleteStorageInputModel inputModel)
+        public Task<DeleteStorageOutputModel> DeleteStorageInputModel([FromBody] DeleteStorageInputModel inputModel)
         {
             return _storageCommandBusiness.DeleteStorage(inputModel);
         }

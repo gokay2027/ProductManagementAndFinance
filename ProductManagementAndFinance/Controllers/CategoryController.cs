@@ -26,19 +26,19 @@ namespace ProductManagementAndFinanceApi.Controllers
         }
 
         [HttpPut]
-        public async Task<UpdateCategoryOutputModel> UpdateCategory([FromQuery] UpdateCategoryModel model)
+        public async Task<UpdateCategoryOutputModel> UpdateCategory([FromBody] UpdateCategoryModel model)
         {
             return await _categoryCommandBusiness.UpdateCategory(model);
         }
 
         [HttpPost]
-        public async Task<AddCategoryCommandOutputModel> AddCategory([FromQuery] AddCategoryModel model)
+        public async Task<AddCategoryCommandOutputModel> AddCategory([FromBody] AddCategoryModel model)
         {
             return await _categoryCommandBusiness.AddCategory(model);
         }
 
         [HttpDelete]
-        public async Task<DeleteCategoryCommandOutputModel> DeleteCategory([FromQuery] DeleteCategoryModel model)
+        public async Task<DeleteCategoryCommandOutputModel> DeleteCategory([FromBody] DeleteCategoryModel model)
         {
             return await _categoryCommandBusiness.DeleteCategory(model);
         }

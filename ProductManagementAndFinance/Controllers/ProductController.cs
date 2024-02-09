@@ -22,14 +22,14 @@ namespace ProductManagementAndFinance.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct([FromQuery] AddProductModel model)
+        public IActionResult AddProduct([FromBody] AddProductModel model)
         {
             _productCommandBusiness.AddProduct(model);
             return Ok();
         }
 
         [HttpDelete]
-        public IActionResult DeleteProduct([FromQuery] DeleteProductInputModel model)
+        public IActionResult DeleteProduct([FromBody] DeleteProductInputModel model)
         {
             _productCommandBusiness.DeleteProduct(model);
             return Ok();
@@ -48,9 +48,9 @@ namespace ProductManagementAndFinance.Controllers
         }
 
         [HttpPut]
-        public Task<UpdateProductOutputModel> UpdateProduct([FromQuery] UpdateProductModel model)
+        public Task<UpdateProductOutputModel> UpdateProduct([FromBody] UpdateProductModel inputModel)
         {
-            return _productCommandBusiness.UpdateProduct(model);
+            return _productCommandBusiness.UpdateProduct(inputModel);
         }
 
         [HttpGet]
