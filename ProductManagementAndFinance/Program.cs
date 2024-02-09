@@ -64,6 +64,7 @@ builder.Services.AddTransient<IProductQuery, ProductQuery>();
 builder.Services.AddTransient<ICategoryQuery, CategoryQuery>();
 builder.Services.AddTransient<IStorageQuery, StorageQuery>();
 builder.Services.AddTransient<IUserQuery, UserQuery>();
+builder.Services.AddTransient<IFinanceQuery, FinanceQuery>();
 
 #endregion Entity Query Services Injection
 
