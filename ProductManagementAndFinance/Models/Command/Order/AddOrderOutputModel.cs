@@ -2,7 +2,7 @@
 
 namespace ProductManagementAndFinanceApi.Models.Command.Order
 {
-    public class AddOrderOuputModel:BaseCommandOutputModel
+    public class AddOrderOutputModel:BaseCommandOutputModel
     {
     }
 }

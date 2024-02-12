@@ -91,8 +91,8 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
             if (searchModel.MinTotalSales.HasValue && searchModel.MaxTotalSales.HasValue)
                 predicate.And(a => a.TotalSales >= searchModel.MinTotalSales && a.TotalSales >= searchModel.MaxTotalSales);
 
-            if (searchModel.MinTotalDeby.HasValue && searchModel.MaxTotalDeby.HasValue)
-                predicate.And(a => a.TotalDeby >= searchModel.MinTotalDeby && a.TotalDeby <= searchModel.MaxTotalDeby);
+            if (searchModel.MinTotalDebt.HasValue && searchModel.MaxTotalDebt.HasValue)
+                predicate.And(a => a.TotalDeby >= searchModel.MinTotalDebt && a.TotalDeby <= searchModel.MaxTotalDebt);
 
             return predicate;
         }

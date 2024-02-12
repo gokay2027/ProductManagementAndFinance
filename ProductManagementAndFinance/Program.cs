@@ -54,6 +54,7 @@ builder.Services.AddTransient<IProductCommandBusiness, ProductCommandBusiness>()
 builder.Services.AddTransient<IUserCommandBusiness, UserCommandBusiness>();
 builder.Services.AddTransient<ICategoryCommandBusiness, CategoryCommandBusiness>();
 builder.Services.AddTransient<IStorageCommandBusiness, StorageCommandBusiness>();
+builder.Services.AddTransient<IOrderCommandBusiness, OrderCommandBusiness>();
 
 #endregion Entity Command Services Injection
 
@@ -65,6 +66,7 @@ builder.Services.AddTransient<ICategoryQuery, CategoryQuery>();
 builder.Services.AddTransient<IStorageQuery, StorageQuery>();
 builder.Services.AddTransient<IUserQuery, UserQuery>();
 builder.Services.AddTransient<IFinanceQuery, FinanceQuery>();
+builder.Services.AddTransient<IOrderQuery, OrderQuery>();
 
 #endregion Entity Query Services Injection
 

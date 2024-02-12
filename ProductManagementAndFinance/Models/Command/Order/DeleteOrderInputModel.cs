@@ -2,5 +2,6 @@
 {
     public class DeleteOrderInputModel
     {
+        public Guid Id { get; set; }
     }
 }

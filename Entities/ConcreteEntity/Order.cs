@@ -5,7 +5,7 @@ namespace Entities.ConcreteEntity
     public class Order : BaseEntity
     {
         public List<Product> Products { get; private set; } = new List<Product>();
-        public float TotalPrice { get; private set; }
+        public float TotalPrice { get; private set; } = 0;
         public string Adress { get; private set; }
 
         public Guid UserId { get; private set; }
@@ -15,16 +15,15 @@ namespace Entities.ConcreteEntity
         {
         }
 
-        public Order(User user, float totalPrice, string adress)
+        public Order(Guid userId, string adress)
         {
-            User = user;
-            TotalPrice = totalPrice;
+            UserId = userId;
             Adress = adress;
         }
 
-        public void UpdateOrder(User user, float totalPrice, string adress)
+        public void UpdateOrder(Guid userId, float totalPrice, string adress)
         {
-            User = user;
+            UserId = userId;
             TotalPrice = totalPrice;
             Adress = adress;
             SetUpdateDate();
@@ -38,6 +37,14 @@ namespace Entities.ConcreteEntity
         public void AddProductToOrder(Product product)
         {
             Products.Add(product);
+            TotalPrice += product.Price;
+        }
+
+        public void DeleteProductFromOrder(Guid productId)
+        {
+            var product = Products.FirstOrDefault(a => a.Id.Equals(productId));
+            Products.Remove(product);
+            TotalPrice -= product.Price;
         }
     }
 }
