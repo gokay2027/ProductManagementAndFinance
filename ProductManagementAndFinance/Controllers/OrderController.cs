@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductManagementAndFinanceApi.Application.Commands.Abstract;
+using ProductManagementAndFinanceApi.Application.Queries.Abstract;
 using ProductManagementAndFinanceApi.Models.Command.Order;
+using ProductManagementAndFinanceApi.Models.Query.Order;
 
 namespace ProductManagementAndFinanceApi.Controllers
 {
@@ -9,10 +11,12 @@ namespace ProductManagementAndFinanceApi.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderCommandBusiness _orderCommandBusiness;
+        private readonly IOrderQuery _orderQuery;
 
-        public OrderController(IOrderCommandBusiness orderCommandBusiness)
+        public OrderController(IOrderCommandBusiness orderCommandBusiness, IOrderQuery orderQuery)
         {
             _orderCommandBusiness = orderCommandBusiness;
+            _orderQuery = orderQuery;
         }
 
         [HttpPost]
@@ -25,6 +29,16 @@ namespace ProductManagementAndFinanceApi.Controllers
         public Task<DeleteOrderOutputModel> DeleteOrder([FromBody] DeleteOrderInputModel inputModel)
         {
             return _orderCommandBusiness.DeleteOrder(inputModel);
+        }
+
+        public Task<OrderListOutputModel> GetAllOrders()
+        {
+            return _orderQuery.GetAllOrders();
+        }
+
+        public Task<OrderListOutputModel> GetOrdersByFilter([FromQuery] OrderSearchModel searchModel)
+        {
+            return _orderQuery.GetOrdersByFilter(searchModel);
         }
 
         [HttpPut]
