@@ -31,11 +31,13 @@ namespace ProductManagementAndFinanceApi.Controllers
             return _orderCommandBusiness.DeleteOrder(inputModel);
         }
 
+        [HttpGet]
         public Task<OrderListOutputModel> GetAllOrders()
         {
             return _orderQuery.GetAllOrders();
         }
 
+        [HttpGet]
         public Task<OrderListOutputModel> GetOrdersByFilter([FromQuery] OrderSearchModel searchModel)
         {
             return _orderQuery.GetOrdersByFilter(searchModel);
