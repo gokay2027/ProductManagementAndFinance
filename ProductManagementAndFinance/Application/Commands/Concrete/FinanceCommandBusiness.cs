@@ -1,4 +1,6 @@
-﻿using ProductManagementAndFinance.Models.AbstractOutputModel.Command;
+﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
+using ProductManagementAndFinance.Models.AbstractOutputModel.Command;
 using ProductManagementAndFinanceApi.Application.Commands.Abstract;
 using ProductManagementAndFinanceApi.Models.Command.Finance;
 using ProductManagementAndFinanceData.Repository.EntityRepository.Abstract;
@@ -20,17 +22,27 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             _orderRepository = orderRepository;
         }
 
-        public BaseCommandOutputModel CreateFinanceReportForUser(CreateFinanceReportForUserInputModel inputModel)
+        public CreateFinanceReportForUserOutputModel CreateFinanceReportForUser(CreateFinanceReportForUserInputModel inputModel)
+        {
+            var workbook = new XLWorkbook();
+            var worksheet = workbook.AddWorksheet("Sample Sheet");
+            worksheet.Cell("A1").Value = "Hello World!";
+            worksheet.Cell("A2").FormulaA1 = "MID(A1, 7, 5)";
+            workbook.SaveAs("C:\\Users\\gokay\\Desktop\\HelloWorld.xlsx");
+
+            return new CreateFinanceReportForUserOutputModel
+            {
+                IsSuccess = true,
+                Message = "aaa"
+            };
+        }
+
+        public CreateOrderReportForUserOutputModel CreateOrderReportForUser(CreateOrderReportForUserInputModel inputModel)
         {
             throw new NotImplementedException();
         }
 
-        public BaseCommandOutputModel CreateOrderReportForUser(CreateOrderReportForUserInputModel inputModel)
-        {
-            throw new NotImplementedException();
-        }
-
-        public BaseCommandOutputModel CreateProductAndStorageReportForUser(CreateProductAndStorageReportForUserInputModel inputModel)
+        public CreateProductAndStorageReportForUserOutputModel CreateProductAndStorageReportForUser(CreateProductAndStorageReportForUserInputModel inputModel)
         {
             throw new NotImplementedException();
         }
