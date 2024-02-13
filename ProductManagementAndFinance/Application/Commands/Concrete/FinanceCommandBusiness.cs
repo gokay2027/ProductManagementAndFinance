@@ -1,9 +1,8 @@
 ﻿using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Spreadsheet;
-using ProductManagementAndFinance.Models.AbstractOutputModel.Command;
 using ProductManagementAndFinanceApi.Application.Commands.Abstract;
 using ProductManagementAndFinanceApi.Models.Command.Finance;
 using ProductManagementAndFinanceData.Repository.EntityRepository.Abstract;
+using System.Text;
 
 namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
 {
@@ -26,25 +25,63 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
         {
             var workbook = new XLWorkbook();
             var worksheet = workbook.AddWorksheet("Sample Sheet");
-            worksheet.Cell("A1").Value = "Hello World!";
-            worksheet.Cell("A2").FormulaA1 = "MID(A1, 7, 5)";
-            workbook.SaveAs("C:\\Users\\gokay\\Desktop\\HelloWorld.xlsx");
+
+            worksheet.Cell(1, 1).Value = "TotalDebt";
+            worksheet.Cell(1, 2).Value = "Total Sales";
+            worksheet.Cell(1, 3).Value = "Total Profit";
+
+            StringBuilder pathbuilder = new StringBuilder("");
+            pathbuilder = pathbuilder.Append(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            pathbuilder = pathbuilder.Append("\\FinanceReportForUser.xlsx");
+            workbook.SaveAs(pathbuilder.ToString());
 
             return new CreateFinanceReportForUserOutputModel
             {
                 IsSuccess = true,
-                Message = "aaa"
+                Message = "Report Saved"
             };
         }
 
         public CreateOrderReportForUserOutputModel CreateOrderReportForUser(CreateOrderReportForUserInputModel inputModel)
         {
-            throw new NotImplementedException();
+            var workbook = new XLWorkbook();
+            var worksheet = workbook.AddWorksheet("Sample Sheet");
+
+            worksheet.Cell(1, 1).Value = "TotalDebt";
+            worksheet.Cell(1, 2).Value = "Total Sales";
+            worksheet.Cell(1, 3).Value = "Total Profit";
+
+            StringBuilder pathbuilder = new StringBuilder("");
+            pathbuilder = pathbuilder.Append(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            pathbuilder = pathbuilder.Append("\\OrderReportForUser.xlsx");
+            workbook.SaveAs(pathbuilder.ToString());
+
+            return new CreateOrderReportForUserOutputModel
+            {
+                IsSuccess = true,
+                Message = "Report Saved"
+            };
         }
 
         public CreateProductAndStorageReportForUserOutputModel CreateProductAndStorageReportForUser(CreateProductAndStorageReportForUserInputModel inputModel)
         {
-            throw new NotImplementedException();
+            var workbook = new XLWorkbook();
+            var worksheet = workbook.AddWorksheet("Sample Sheet");
+
+            worksheet.Cell(1, 1).Value = "TotalDebt";
+            worksheet.Cell(1, 2).Value = "Total Sales";
+            worksheet.Cell(1, 3).Value = "Total Profit";
+
+            StringBuilder pathbuilder = new StringBuilder("");
+            pathbuilder = pathbuilder.Append(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+            pathbuilder = pathbuilder.Append("\\ProductAndStorageReportForUser.xlsx");
+            workbook.SaveAs(pathbuilder.ToString());
+
+            return new CreateProductAndStorageReportForUserOutputModel
+            {
+                IsSuccess = true,
+                Message = "Report Saved"
+            };
         }
     }
 }

@@ -26,15 +26,17 @@ namespace ProductManagementAndFinanceApi.Controllers
             return _financeCommandBusiness.CreateFinanceReportForUser(inputModel);
         }
 
-        //public BaseCommandOutputModel CreateOrderReportForUser(CreateOrderReportForUserInputModel inputModel)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        [HttpPost]
+        public CreateOrderReportForUserOutputModel CreateOrderReportForUser([FromBody] CreateOrderReportForUserInputModel inputModel)
+        {
+            return _financeCommandBusiness.CreateOrderReportForUser(inputModel);
+        }
 
-        //public BaseCommandOutputModel CreateProductAndStorageReportForUser(CreateProductAndStorageReportForUserInputModel inputModel)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        [HttpPost]
+        public CreateProductAndStorageReportForUserOutputModel CreateProductAndStorageReportForUser([FromBody] CreateProductAndStorageReportForUserInputModel inputModel)
+        {
+            return _financeCommandBusiness.CreateProductAndStorageReportForUser(inputModel);
+        }
 
         [HttpGet]
         public Task<FinanceListOutputModel> GetAllFinances()
