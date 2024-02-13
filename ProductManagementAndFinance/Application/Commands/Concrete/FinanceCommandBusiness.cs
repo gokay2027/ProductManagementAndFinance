@@ -30,10 +30,7 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             worksheet.Cell(1, 2).Value = "Total Sales";
             worksheet.Cell(1, 3).Value = "Total Profit";
 
-            StringBuilder pathbuilder = new StringBuilder("");
-            pathbuilder = pathbuilder.Append(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-            pathbuilder = pathbuilder.Append("\\FinanceReportForUser.xlsx");
-            workbook.SaveAs(pathbuilder.ToString());
+            SaveLocationForExcelReports(workbook, "FinanceReportForUser");
 
             return new CreateFinanceReportForUserOutputModel
             {
@@ -51,10 +48,7 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             worksheet.Cell(1, 2).Value = "Total Sales";
             worksheet.Cell(1, 3).Value = "Total Profit";
 
-            StringBuilder pathbuilder = new StringBuilder("");
-            pathbuilder = pathbuilder.Append(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-            pathbuilder = pathbuilder.Append("\\OrderReportForUser.xlsx");
-            workbook.SaveAs(pathbuilder.ToString());
+            SaveLocationForExcelReports(workbook, "OrderReportForUser");
 
             return new CreateOrderReportForUserOutputModel
             {
@@ -72,16 +66,31 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             worksheet.Cell(1, 2).Value = "Total Sales";
             worksheet.Cell(1, 3).Value = "Total Profit";
 
-            StringBuilder pathbuilder = new StringBuilder("");
-            pathbuilder = pathbuilder.Append(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
-            pathbuilder = pathbuilder.Append("\\ProductAndStorageReportForUser.xlsx");
-            workbook.SaveAs(pathbuilder.ToString());
+            SaveLocationForExcelReports(workbook, "ProductAndStorageReportForUser");
 
             return new CreateProductAndStorageReportForUserOutputModel
             {
                 IsSuccess = true,
                 Message = "Report Saved"
             };
+        }
+
+        private static void SaveLocationForExcelReports(XLWorkbook workbook, string reportName)
+        {
+            StringBuilder pathbuilder = new StringBuilder("");
+            pathbuilder = pathbuilder.Append(Environment.GetFolderPath(Environment.SpecialFolder.Desktop));
+
+            if (System.OperatingSystem.IsLinux())
+            {
+                pathbuilder = pathbuilder.Append($"/{reportName}.xlsx");
+                workbook.SaveAs(pathbuilder.ToString());
+            }
+
+            if (System.OperatingSystem.IsWindows())
+            {
+                pathbuilder = pathbuilder.Append($"\\{reportName}.xlsx");
+                workbook.SaveAs(pathbuilder.ToString());
+            }
         }
     }
 }
