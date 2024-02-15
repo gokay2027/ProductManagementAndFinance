@@ -22,6 +22,8 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             _orderRepository = orderRepository;
         }
 
+        //Finance reposistory will save and update last finance condition of the domain to the database
+
         public async Task<CreateFinanceReportForUserOutputModel> CreateFinanceReportForUser(CreateFinanceReportForUserInputModel inputModel)
         {
             var workbook = new XLWorkbook();
