@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using LinqKit;
 using ProductManagementAndFinanceApi.Application.Commands.Abstract;
 using ProductManagementAndFinanceApi.Models.Command.Finance;
 using ProductManagementAndFinanceData.Repository.EntityRepository.Abstract;
@@ -24,14 +25,14 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
         public async Task<CreateFinanceReportForUserOutputModel> CreateFinanceReportForUser(CreateFinanceReportForUserInputModel inputModel)
         {
             var workbook = new XLWorkbook();
-            var worksheet = workbook.AddWorksheet("Sample Sheet");
+            var worksheet = workbook.AddWorksheet("Finance Report");
 
             //Dates required and max min date check will be done in validation
 
-            var ordersOfUser = await _orderRepository.GetByFilter(a => a.UserId == inputModel.UserId
+            var ordersOfUser = await _orderRepository.GetFilteredOrdersWithUserAndProducts(a => a.UserId == inputModel.UserId
             && a.CreatedDate <= inputModel.MaxDate
             && a.CreatedDate >= inputModel.MinDate);
-
+            
             float sumOfEndorsement = 0;
             var totalProductSales = 0;
 
@@ -69,11 +70,33 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
         public async Task<CreateOrderReportForUserOutputModel> CreateOrderReportForUser(CreateOrderReportForUserInputModel inputModel)
         {
             var workbook = new XLWorkbook();
-            var worksheet = workbook.AddWorksheet("Sample Sheet");
+            var worksheet = workbook.AddWorksheet("Order Report");
 
-            worksheet.Cell(1, 1).Value = "TotalDebt";
-            worksheet.Cell(1, 2).Value = "Total Sales";
-            worksheet.Cell(1, 3).Value = "Total Profit";
+            var ordersOfUser = await _orderRepository.GetByFilter(a => a.UserId == inputModel.UserId
+            && a.CreatedDate <= inputModel.MaxDate
+            && a.CreatedDate >= inputModel.MinDate);
+
+            worksheet.Cell(1, 1).Value = "Adress";
+            worksheet.Cell(1, 2).Value = "Total Price";
+            worksheet.Cell(1, 3).Value = "Products";
+
+            //They will be enumed
+            //BURADA KALDIN
+            var adressColumn = 1;
+            var totalPriceColumn = 2;
+            var productColumn = 3;
+            var productNameColumn = 4;
+            var productPriceColumn = 5;
+
+            var startBottomRow = 2;
+            ordersOfUser.ForEach(order =>
+            {
+                worksheet.Cell(startBottomRow, adressColumn).Value = order.Adress;
+                worksheet.Cell(startBottomRow, totalPriceColumn).Value = order.TotalPrice;
+                order.Products.ForEach(product =>
+                {
+                });
+            });
 
             SaveLocationForExcelReports(workbook, "OrderReportForUser");
 
