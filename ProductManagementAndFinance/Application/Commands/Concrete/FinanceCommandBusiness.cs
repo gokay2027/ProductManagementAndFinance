@@ -110,7 +110,7 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
         public async Task<CreateProductAndStorageReportForUserOutputModel> CreateProductAndStorageReportForUser(CreateProductAndStorageReportForUserInputModel inputModel)
         {
             var workbook = new XLWorkbook();
-            var worksheet = workbook.AddWorksheet("Sample Sheet");
+            var worksheet = workbook.AddWorksheet("Product and Storage Report");
 
             worksheet.Cell(1, 1).Value = "TotalDebt";
             worksheet.Cell(1, 2).Value = "Total Sales";
