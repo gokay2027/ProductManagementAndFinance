@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProductManagementAndFinance.Models.AbstractOutputModel.Command;
 using ProductManagementAndFinanceApi.Application.Commands.Abstract;
 using ProductManagementAndFinanceApi.Application.Queries.Abstract;
 using ProductManagementAndFinanceApi.Models.Command.Finance;
@@ -21,19 +20,19 @@ namespace ProductManagementAndFinanceApi.Controllers
         }
 
         [HttpPost]
-        public BaseCommandOutputModel CreateFinanceReportForUser([FromBody] CreateFinanceReportForUserInputModel inputModel)
+        public Task<CreateFinanceReportForUserOutputModel> CreateFinanceReportForUser([FromBody] CreateFinanceReportForUserInputModel inputModel)
         {
             return _financeCommandBusiness.CreateFinanceReportForUser(inputModel);
         }
 
         [HttpPost]
-        public CreateOrderReportForUserOutputModel CreateOrderReportForUser([FromBody] CreateOrderReportForUserInputModel inputModel)
+        public Task<CreateOrderReportForUserOutputModel> CreateOrderReportForUser([FromBody] CreateOrderReportForUserInputModel inputModel)
         {
             return _financeCommandBusiness.CreateOrderReportForUser(inputModel);
         }
 
         [HttpPost]
-        public CreateProductAndStorageReportForUserOutputModel CreateProductAndStorageReportForUser([FromBody] CreateProductAndStorageReportForUserInputModel inputModel)
+        public Task<CreateProductAndStorageReportForUserOutputModel> CreateProductAndStorageReportForUser([FromBody] CreateProductAndStorageReportForUserInputModel inputModel)
         {
             return _financeCommandBusiness.CreateProductAndStorageReportForUser(inputModel);
         }

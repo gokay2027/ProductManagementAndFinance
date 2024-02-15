@@ -21,14 +21,37 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             _orderRepository = orderRepository;
         }
 
-        public CreateFinanceReportForUserOutputModel CreateFinanceReportForUser(CreateFinanceReportForUserInputModel inputModel)
+        public async Task<CreateFinanceReportForUserOutputModel> CreateFinanceReportForUser(CreateFinanceReportForUserInputModel inputModel)
         {
             var workbook = new XLWorkbook();
             var worksheet = workbook.AddWorksheet("Sample Sheet");
 
+            var ordersOfUser = await _orderRepository.GetByFilter(a => a.UserId == inputModel.UserId);
+
+            float sumOfEndorsement = 0;
+            var totalProductSales = 0;
+
+            //Product buy price column will be added to domain
+            var totalDebt = 0;
+
+            foreach (var order in ordersOfUser)
+            {
+                var orderProductList = order.Products;
+                totalProductSales += orderProductList.Count;
+
+                var productPrices = orderProductList.Select(a => a.Price);
+                var orderTotalEndorsement = productPrices.Sum();
+
+                sumOfEndorsement += orderTotalEndorsement;
+            }
+
             worksheet.Cell(1, 1).Value = "TotalDebt";
-            worksheet.Cell(1, 2).Value = "Total Sales";
+            worksheet.Cell(1, 2).Value = "Total Product Sales";
             worksheet.Cell(1, 3).Value = "Total Profit";
+
+            worksheet.Cell(2, 1).Value = totalDebt;
+            worksheet.Cell(2, 2).Value = totalProductSales;
+            worksheet.Cell(2, 3).Value = sumOfEndorsement;
 
             SaveLocationForExcelReports(workbook, "FinanceReportForUser");
 
@@ -39,7 +62,7 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             };
         }
 
-        public CreateOrderReportForUserOutputModel CreateOrderReportForUser(CreateOrderReportForUserInputModel inputModel)
+        public async Task<CreateOrderReportForUserOutputModel> CreateOrderReportForUser(CreateOrderReportForUserInputModel inputModel)
         {
             var workbook = new XLWorkbook();
             var worksheet = workbook.AddWorksheet("Sample Sheet");
@@ -57,7 +80,7 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             };
         }
 
-        public CreateProductAndStorageReportForUserOutputModel CreateProductAndStorageReportForUser(CreateProductAndStorageReportForUserInputModel inputModel)
+        public async Task<CreateProductAndStorageReportForUserOutputModel> CreateProductAndStorageReportForUser(CreateProductAndStorageReportForUserInputModel inputModel)
         {
             var workbook = new XLWorkbook();
             var worksheet = workbook.AddWorksheet("Sample Sheet");
