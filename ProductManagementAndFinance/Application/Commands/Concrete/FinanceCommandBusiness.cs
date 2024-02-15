@@ -34,7 +34,7 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             var ordersOfUser = await _orderRepository.GetFilteredOrdersWithUserAndProducts(a => a.UserId == inputModel.UserId
             && a.CreatedDate <= inputModel.MaxDate
             && a.CreatedDate >= inputModel.MinDate);
-            
+
             float sumOfEndorsement = 0;
             var totalProductSales = 0;
 
@@ -78,10 +78,6 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             && a.CreatedDate <= inputModel.MaxDate
             && a.CreatedDate >= inputModel.MinDate);
 
-            worksheet.Cell(1, 1).Value = "Adress";
-            worksheet.Cell(1, 2).Value = "Total Price";
-            worksheet.Cell(1, 3).Value = "Products";
-
             //They will be enumed
             //BURADA KALDIN
             var adressColumn = 1;
@@ -89,8 +85,19 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             var productColumn = 3;
             var productNameColumn = 4;
             var productPriceColumn = 5;
+            var productDescrptionColumn = 6;
+            var productPriceCurrencyColumn = 7;
+
+            worksheet.Cell(1, adressColumn).Value = "Adress";
+            worksheet.Cell(1, totalPriceColumn).Value = "Total Price";
+            worksheet.Cell(1, productColumn).Value = "Products";
+            worksheet.Cell(1, productNameColumn).Value = "Product Name";
+            worksheet.Cell(1, productPriceColumn).Value = "Product Description";
+            worksheet.Cell(1, productDescrptionColumn).Value = "Product Price";
+            worksheet.Cell(1, productPriceCurrencyColumn).Value = "Product Currency";
 
             var startBottomRow = 2;
+
             ordersOfUser.ForEach(order =>
             {
                 worksheet.Cell(startBottomRow, adressColumn).Value = order.Adress;
