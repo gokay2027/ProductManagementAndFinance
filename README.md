@@ -19,6 +19,7 @@ Libraries which were used
 - EntityFrameworkCore
 - LinqKit (Filter builder)
 - FluentValidation
+- ClosedXML
 - Dapper
 - NewtonSoft (Planned to use to have communication external files)
 - xUnit (For unit testing)
