@@ -26,7 +26,11 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             var workbook = new XLWorkbook();
             var worksheet = workbook.AddWorksheet("Sample Sheet");
 
-            var ordersOfUser = await _orderRepository.GetByFilter(a => a.UserId == inputModel.UserId);
+            //Dates required and max min date check will be done in validation
+
+            var ordersOfUser = await _orderRepository.GetByFilter(a => a.UserId == inputModel.UserId
+            && a.CreatedDate <= inputModel.MaxDate
+            && a.CreatedDate >= inputModel.MinDate);
 
             float sumOfEndorsement = 0;
             var totalProductSales = 0;
