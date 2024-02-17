@@ -1,6 +1,7 @@
 ﻿using ClosedXML.Excel;
 using LinqKit;
 using ProductManagementAndFinanceApi.Application.Commands.Abstract;
+using ProductManagementAndFinanceApi.Application.Commands.Enums;
 using ProductManagementAndFinanceApi.Models.Command.Finance;
 using ProductManagementAndFinanceData.Repository.EntityRepository.Abstract;
 using System.Text;
@@ -78,32 +79,27 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             && a.CreatedDate <= inputModel.MaxDate
             && a.CreatedDate >= inputModel.MinDate);
 
-            //They will be enumed
-            //BURADA KALDIN
-            var adressColumn = 1;
-            var totalPriceColumn = 2;
-            var productColumn = 3;
-            var productNameColumn = 4;
-            var productPriceColumn = 5;
-            var productDescrptionColumn = 6;
-            var productPriceCurrencyColumn = 7;
-
-            worksheet.Cell(1, adressColumn).Value = "Adress";
-            worksheet.Cell(1, totalPriceColumn).Value = "Total Price";
-            worksheet.Cell(1, productColumn).Value = "Products";
-            worksheet.Cell(1, productNameColumn).Value = "Product Name";
-            worksheet.Cell(1, productPriceColumn).Value = "Product Description";
-            worksheet.Cell(1, productDescrptionColumn).Value = "Product Price";
-            worksheet.Cell(1, productPriceCurrencyColumn).Value = "Product Currency";
+            worksheet.Cell(1, (int)OrderReportColumnEnum.adressColumn).Value = "Adress";
+            worksheet.Cell(1, (int)OrderReportColumnEnum.totalPriceColumn).Value = "Total Price";
+            worksheet.Cell(1, (int)OrderReportColumnEnum.productColumn).Value = "Products";
+            worksheet.Cell(1, (int)OrderReportColumnEnum.productNameColumn).Value = "Product Name";
+            worksheet.Cell(1, (int)OrderReportColumnEnum.productDescriptionColumn).Value = "Product Description";
+            worksheet.Cell(1, (int)OrderReportColumnEnum.productPriceColumn).Value = "Product Price";
+            worksheet.Cell(1, (int)OrderReportColumnEnum.productPriceCurrencyColumn).Value = "Product Currency";
 
             var startBottomRow = 2;
 
             ordersOfUser.ForEach(order =>
             {
-                worksheet.Cell(startBottomRow, adressColumn).Value = order.Adress;
-                worksheet.Cell(startBottomRow, totalPriceColumn).Value = order.TotalPrice;
+                worksheet.Cell(startBottomRow, (int)OrderReportColumnEnum.adressColumn).Value = order.Adress;
+                worksheet.Cell(startBottomRow, (int)OrderReportColumnEnum.totalPriceColumn).Value = order.TotalPrice;
                 order.Products.ForEach(product =>
                 {
+                    worksheet.Cell(startBottomRow, (int)OrderReportColumnEnum.productNameColumn).Value = product.Name;
+                    worksheet.Cell(startBottomRow, (int)OrderReportColumnEnum.productDescriptionColumn).Value = product.Description;
+                    worksheet.Cell(startBottomRow, (int)OrderReportColumnEnum.productPriceColumn).Value = product.Price;
+                    worksheet.Cell(startBottomRow, (int)OrderReportColumnEnum.productPriceCurrencyColumn).Value = product.PriceCurrency;
+                    startBottomRow++;
                 });
             });
 
