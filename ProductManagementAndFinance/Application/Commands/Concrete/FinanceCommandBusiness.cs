@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using Entities.ConcreteEntity;
 using LinqKit;
 using ProductManagementAndFinanceApi.Application.Commands.Abstract;
 using ProductManagementAndFinanceApi.Application.Commands.Enums;
@@ -16,11 +17,13 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
     {
         private readonly IFinanceRepository _financeRepository;
         private readonly IOrderRepository _orderRepository;
+        private readonly IStorageRepository _storaRepository;
 
-        public FinanceCommandBusiness(IFinanceRepository financeRepository, IOrderRepository orderRepository)
+        public FinanceCommandBusiness(IFinanceRepository financeRepository, IOrderRepository orderRepository, IStorageRepository storaRepository)
         {
             _financeRepository = financeRepository;
             _orderRepository = orderRepository;
+            _storaRepository = storaRepository;
         }
 
         //Finance reposistory will save and update last finance condition of the domain to the database
@@ -117,6 +120,11 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             var workbook = new XLWorkbook();
             var worksheet = workbook.AddWorksheet("Product and Storage Report");
 
+
+            var predicate = CreateProductAndStorageReportFilterBuilder(inputModel);
+
+            var storage = await _storaRepository.GetFilteredStoragesWithProductAndUser(predicate);
+
             worksheet.Cell(1, 1).Value = "TotalDebt";
             worksheet.Cell(1, 2).Value = "Total Sales";
             worksheet.Cell(1, 3).Value = "Total Profit";
@@ -146,6 +154,17 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
                 pathbuilder = pathbuilder.Append($"\\{reportName}.xlsx");
                 workbook.SaveAs(pathbuilder.ToString());
             }
+        }
+
+
+        private static ExpressionStarter<Storage> CreateProductAndStorageReportFilterBuilder(CreateProductAndStorageReportForUserInputModel inputModel)
+        {
+            var predicate = PredicateBuilder.New<Storage>();
+
+            predicate.And(a => a.Id.Equals(inputModel.StorageId));
+            predicate.And(a => a.UserId.Equals(inputModel.UserId));
+            
+            return predicate;
         }
     }
 }
