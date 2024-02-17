@@ -120,7 +120,6 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             var workbook = new XLWorkbook();
             var worksheet = workbook.AddWorksheet("Product and Storage Report");
 
-
             var predicate = CreateProductAndStorageReportFilterBuilder(inputModel);
 
             var storage = await _storaRepository.GetFilteredStoragesWithProductAndUser(predicate);
