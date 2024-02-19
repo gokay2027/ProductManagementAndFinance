@@ -1,4 +1,7 @@
-﻿using ProductManagementAndFinance.Application.Queries.Abstract;
+﻿using Entities.ConcreteEntity;
+using LinqKit;
+using Microsoft.IdentityModel.Tokens;
+using ProductManagementAndFinance.Application.Queries.Abstract;
 using ProductManagementAndFinanceApi.Models.Query.Category;
 using ProductManagementAndFinanceData.Repository.EntityRepository.Abstract;
 
@@ -41,6 +44,50 @@ namespace ProductManagementAndFinance.Application.Queries.Concrete
                 output.Message = ex.Message;
                 return output;
             }
+        }
+
+        public async Task<CategoryListOutputModel> GetCategoriesByFilter(CategorySearchModel searchModel)
+        {
+            var output = new CategoryListOutputModel();
+
+            try
+            {
+                var predicate = FilterBuilderForCategory(searchModel);
+                var categoriesList = await _categoryRepository.GetByFilter(predicate);
+
+                foreach (var category in categoriesList)
+                {
+                    output.List.Add(new CategoryListModel
+                    {
+                        Id = category.Id,
+                        Description = category.Description,
+                        Name = category.Name,
+                    });
+                }
+                return output;
+            }
+            catch (Exception ex)
+            {
+                output.IsSuccess = false;
+                output.Message = ex.Message;
+                return output;
+            }
+        }
+
+        private static ExpressionStarter<Category> FilterBuilderForCategory(CategorySearchModel searchModel)
+        {
+            var predicate = PredicateBuilder.New<Category>();
+
+            if (!searchModel.Name.IsNullOrEmpty())
+            {
+                predicate.And(a => a.Name.Contains(searchModel.Name));
+            }
+
+            if (!searchModel.Description.IsNullOrEmpty())
+            {
+                predicate.And(a => a.Description.Contains(searchModel.Description));
+            }
+            return predicate;
         }
     }
 }

@@ -42,5 +42,11 @@ namespace ProductManagementAndFinanceApi.Controllers
         {
             return await _categoryCommandBusiness.DeleteCategory(model);
         }
+
+        [HttpGet]
+        public async Task<CategoryListOutputModel> GetCategoriesByFilter([FromQuery] CategorySearchModel searchModel)
+        {
+            return await _categoryQuery.GetCategoriesByFilter(searchModel);
+        }
     }
 }
