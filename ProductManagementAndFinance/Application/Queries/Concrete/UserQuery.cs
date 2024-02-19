@@ -68,18 +68,13 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
             }
             else
             {
-                var errorMessageList = new List<string>();
-                foreach (var error in validationResult.Errors)
-                {
-                    errorMessageList.Add(error.ErrorMessage);
-                }
+               
 
                 return new UserLoginOutputModel
                 {
                     ItemCount = 0,
                     IsSuccess = false,
-                    Message = "Validation Error",
-                    OutputErrorMessages = errorMessageList
+                    Message = validationResult.ToString(),
                 };
             }
         }
