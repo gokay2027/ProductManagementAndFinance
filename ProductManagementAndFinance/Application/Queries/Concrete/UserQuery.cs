@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using ProductManagementAndFinanceApi.Application.Queries.Abstract;
 using ProductManagementAndFinanceApi.Models.Query.User;
 using ProductManagementAndFinanceData.Repository.EntityRepository.Abstract;
+using Validation.SearchModelValidation.User;
 
 namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
 {
@@ -18,48 +19,72 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
 
         public async Task<UserLoginOutputModel> Login(UserLoginModel loginModel)
         {
-            try
-            {
-                var user = await _userRepository.GetByFilter(a => a.UserName.Equals(loginModel.UserName) && a.Password.Equals(loginModel.Password));
+            var validator = new UserLoginModelValidator();
+            
+            var validationResult = validator.Validate(loginModel);
 
-                if (user.Count().Equals(0))
+            if (validationResult.IsValid) {
+                try
+                {
+                    var user = await _userRepository.GetByFilter(a => a.UserName.Equals(loginModel.UserName) && a.Password.Equals(loginModel.Password));
+
+                    if (user.Count().Equals(0))
+                    {
+                        return new UserLoginOutputModel
+                        {
+                            ItemCount = 0,
+                            IsSuccess = true,
+                            Message = "Wrong user information.",
+                        };
+                    }
+                    else
+                    {
+                        var loggedinUSer = user.ElementAt(0);
+                        return new UserLoginOutputModel
+                        {
+                            Data = new UserBaseModel
+                            {
+                                Id = loggedinUSer.Id,
+                                UserName = loggedinUSer.UserName,
+                                Name = loggedinUSer.Name,
+                                Surname = loggedinUSer.Surname,
+                                Email = loggedinUSer.Email,
+                            },
+                            ItemCount = 1,
+                            IsSuccess = true,
+                            Message = "Successfully Logged In",
+                        };
+                    }
+                }
+                catch (Exception ex)
                 {
                     return new UserLoginOutputModel
                     {
                         ItemCount = 0,
-                        IsSuccess = true,
-                        Message = "Wrong user information.",
-                    };
-                }
-                else
-                {
-                    var loggedinUSer = user.ElementAt(0);
-                    return new UserLoginOutputModel
-                    {
-                        Data = new UserBaseModel
-                        {
-                            Id = loggedinUSer.Id,
-                            UserName = loggedinUSer.UserName,
-                            Name = loggedinUSer.Name,
-                            Surname = loggedinUSer.Surname,
-                            Email = loggedinUSer.Email,
-                        },
-                        ItemCount = 1,
-                        IsSuccess = true,
-                        Message = "Successfully Logged In",
+                        IsSuccess = false,
+                        Message = ex.Message,
                     };
                 }
             }
-            catch (Exception ex)
+            else
             {
+                var errorMessageList = new List<string>();  
+                foreach(var error in validationResult.Errors)
+                {
+                    errorMessageList.Add(error.ErrorMessage);
+                }
+
                 return new UserLoginOutputModel
                 {
                     ItemCount = 0,
                     IsSuccess = false,
-                    Message = ex.Message,
+                    Message = "Validation Error",
+                    OutputErrorMessages = errorMessageList
                 };
+               
             }
         }
+
 
         public async Task<UserSearchOutputModel> SearchUser(UserSearchModel searchModel)
         {
