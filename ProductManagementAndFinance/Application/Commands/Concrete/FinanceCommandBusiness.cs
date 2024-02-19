@@ -82,26 +82,26 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             && a.CreatedDate <= inputModel.MaxDate
             && a.CreatedDate >= inputModel.MinDate);
 
-            worksheet.Cell(1, (int)OrderReportColumnEnum.adressColumn).Value = "Adress";
-            worksheet.Cell(1, (int)OrderReportColumnEnum.totalPriceColumn).Value = "Total Price";
-            worksheet.Cell(1, (int)OrderReportColumnEnum.productColumn).Value = "Products";
-            worksheet.Cell(1, (int)OrderReportColumnEnum.productNameColumn).Value = "Product Name";
-            worksheet.Cell(1, (int)OrderReportColumnEnum.productDescriptionColumn).Value = "Product Description";
-            worksheet.Cell(1, (int)OrderReportColumnEnum.productPriceColumn).Value = "Product Price";
-            worksheet.Cell(1, (int)OrderReportColumnEnum.productPriceCurrencyColumn).Value = "Product Currency";
+            worksheet.Cell(1, (int)OrderReportColumn.adressColumn).Value = "Adress";
+            worksheet.Cell(1, (int)OrderReportColumn.totalPriceColumn).Value = "Total Price";
+            worksheet.Cell(1, (int)OrderReportColumn.productColumn).Value = "Products";
+            worksheet.Cell(1, (int)OrderReportColumn.productNameColumn).Value = "Product Name";
+            worksheet.Cell(1, (int)OrderReportColumn.productDescriptionColumn).Value = "Product Description";
+            worksheet.Cell(1, (int)OrderReportColumn.productPriceColumn).Value = "Product Price";
+            worksheet.Cell(1, (int)OrderReportColumn.productPriceCurrencyColumn).Value = "Product Currency";
 
             var startBottomRow = 2;
 
             ordersOfUser.ForEach(order =>
             {
-                worksheet.Cell(startBottomRow, (int)OrderReportColumnEnum.adressColumn).Value = order.Adress;
-                worksheet.Cell(startBottomRow, (int)OrderReportColumnEnum.totalPriceColumn).Value = order.TotalPrice;
+                worksheet.Cell(startBottomRow, (int)OrderReportColumn.adressColumn).Value = order.Adress;
+                worksheet.Cell(startBottomRow, (int)OrderReportColumn.totalPriceColumn).Value = order.TotalPrice;
                 order.Products.ForEach(product =>
                 {
-                    worksheet.Cell(startBottomRow, (int)OrderReportColumnEnum.productNameColumn).Value = product.Name;
-                    worksheet.Cell(startBottomRow, (int)OrderReportColumnEnum.productDescriptionColumn).Value = product.Description;
-                    worksheet.Cell(startBottomRow, (int)OrderReportColumnEnum.productPriceColumn).Value = product.Price;
-                    worksheet.Cell(startBottomRow, (int)OrderReportColumnEnum.productPriceCurrencyColumn).Value = product.PriceCurrency;
+                    worksheet.Cell(startBottomRow, (int)OrderReportColumn.productNameColumn).Value = product.Name;
+                    worksheet.Cell(startBottomRow, (int)OrderReportColumn.productDescriptionColumn).Value = product.Description;
+                    worksheet.Cell(startBottomRow, (int)OrderReportColumn.productPriceColumn).Value = product.Price;
+                    worksheet.Cell(startBottomRow, (int)OrderReportColumn.productPriceCurrencyColumn).Value = product.PriceCurrency;
                     startBottomRow++;
                 });
             });
@@ -122,11 +122,36 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
 
             var predicate = CreateProductAndStorageReportFilterBuilder(inputModel);
 
-            var storage = await _storaRepository.GetFilteredStoragesWithProductAndUser(predicate);
+            var storageList = await _storaRepository.GetFilteredStoragesWithProductAndUser(predicate);
 
-            worksheet.Cell(1, 1).Value = "TotalDebt";
-            worksheet.Cell(1, 2).Value = "Total Sales";
-            worksheet.Cell(1, 3).Value = "Total Profit";
+            var storage = storageList.First();
+
+            worksheet.Cell(1, (int)ProductAndStorageColumn.storageNameColumn).Value = "Storage Name";
+            worksheet.Cell(1, (int)ProductAndStorageColumn.storageAdressColumn).Value = "Storage Adress";
+            worksheet.Cell(1, (int)ProductAndStorageColumn.storageOwnerColumn).Value = "Storage Owner";
+            worksheet.Cell(1, (int)ProductAndStorageColumn.productsColumn).Value = "Products";
+            worksheet.Cell(1, (int)ProductAndStorageColumn.productNameColumn).Value = "Product Name";
+            worksheet.Cell(1, (int)ProductAndStorageColumn.productDescriptionColumn).Value = "Product Description";
+            worksheet.Cell(1, (int)ProductAndStorageColumn.productPriceColumn).Value = "Product Price";
+            worksheet.Cell(1, (int)ProductAndStorageColumn.productCurrencyColumn).Value = "Product Currency";
+            worksheet.Cell(1, (int)ProductAndStorageColumn.productTotalValueColumn).Value = "Product Total Value";
+
+            var startBottomRow = 2;
+
+            worksheet.Cell(startBottomRow, (int)ProductAndStorageColumn.storageNameColumn).Value = storage.Name;
+            worksheet.Cell(startBottomRow, (int)ProductAndStorageColumn.storageAdressColumn).Value = storage.Adress;
+            worksheet.Cell(startBottomRow, (int)ProductAndStorageColumn.storageOwnerColumn).Value = storage.User.Name + " " + storage.User.Surname;
+
+            storage.Products.ForEach(product =>
+            {
+                worksheet.Cell(startBottomRow, (int)ProductAndStorageColumn.productNameColumn).Value = product.Name;
+                worksheet.Cell(startBottomRow, (int)ProductAndStorageColumn.productDescriptionColumn).Value = product.Description;
+                worksheet.Cell(startBottomRow, (int)ProductAndStorageColumn.productPriceColumn).Value = product.Price;
+                worksheet.Cell(startBottomRow, (int)ProductAndStorageColumn.productCurrencyColumn).Value = product.PriceCurrency;
+                worksheet.Cell(2, (int)ProductAndStorageColumn.productTotalValueColumn).Value = storage.Products.Sum(a => a.Price);
+
+                startBottomRow++;
+            });
 
             SaveLocationForExcelReports(workbook, "ProductAndStorageReportForUser");
 
@@ -155,14 +180,13 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             }
         }
 
-
         private static ExpressionStarter<Storage> CreateProductAndStorageReportFilterBuilder(CreateProductAndStorageReportForUserInputModel inputModel)
         {
             var predicate = PredicateBuilder.New<Storage>();
 
             predicate.And(a => a.Id.Equals(inputModel.StorageId));
             predicate.And(a => a.UserId.Equals(inputModel.UserId));
-            
+
             return predicate;
         }
     }
