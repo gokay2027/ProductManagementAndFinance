@@ -20,10 +20,10 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
         public async Task<UserLoginOutputModel> Login(UserLoginModel loginModel)
         {
             var validator = new UserLoginModelValidator();
-            
             var validationResult = validator.Validate(loginModel);
 
-            if (validationResult.IsValid) {
+            if (validationResult.IsValid)
+            {
                 try
                 {
                     var user = await _userRepository.GetByFilter(a => a.UserName.Equals(loginModel.UserName) && a.Password.Equals(loginModel.Password));
@@ -68,8 +68,8 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
             }
             else
             {
-                var errorMessageList = new List<string>();  
-                foreach(var error in validationResult.Errors)
+                var errorMessageList = new List<string>();
+                foreach (var error in validationResult.Errors)
                 {
                     errorMessageList.Add(error.ErrorMessage);
                 }
@@ -81,10 +81,8 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
                     Message = "Validation Error",
                     OutputErrorMessages = errorMessageList
                 };
-               
             }
         }
-
 
         public async Task<UserSearchOutputModel> SearchUser(UserSearchModel searchModel)
         {
