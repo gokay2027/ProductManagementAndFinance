@@ -68,8 +68,6 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
             }
             else
             {
-               
-
                 return new UserLoginOutputModel
                 {
                     ItemCount = 0,
