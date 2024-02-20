@@ -1,7 +1,9 @@
 ﻿using Entities.ConcreteEntity;
 using ProductManagementAndFinance.Application.Commands.Abstract;
 using ProductManagementAndFinance.Models.Command.Product;
+using ProductManagementAndFinanceApi.Validation.InputModelValidation.Product;
 using ProductManagementAndFinanceData.Repository.EntityRepository.Abstract;
+using System.Diagnostics;
 
 namespace ProductManagementAndFinance.Application.Commands.Concrete
 {
@@ -14,73 +16,116 @@ namespace ProductManagementAndFinance.Application.Commands.Concrete
             _productRepository = productRepository;
         }
 
-        public async Task<AddProductOutputModel> AddProduct(AddProductModel model)
+        public async Task<AddProductOutputModel> AddProduct(AddProductModel inputModel)
         {
-            try
+            var validation = new AddProductInputModelValidator();
+            var validationResult = validation.Validate(inputModel);
+
+            if (validationResult.IsValid)
             {
-                var product = new Product(model.Name, model.Description, model.Price, model.PriceCurrency);
-
-                await _productRepository.Add(product);
-
-                return new AddProductOutputModel
+                try
                 {
-                    IsSuccess = true,
-                    Message = "Product Added Successfully"
-                };
+                    var product = new Product(inputModel.Name, inputModel.Description, inputModel.Price, inputModel.PriceCurrency);
+
+                    await _productRepository.Add(product);
+
+                    return new AddProductOutputModel
+                    {
+                        IsSuccess = true,
+                        Message = "Product Added Successfully"
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new AddProductOutputModel
+                    {
+                        IsSuccess = false,
+                        Message = ex.Message
+                    };
+                }
             }
-            catch (Exception ex)
+            else
             {
                 return new AddProductOutputModel
                 {
                     IsSuccess = false,
-                    Message = ex.Message
+                    Message = validationResult.ToString()
                 };
             }
         }
 
-        public async Task<DeleteProductOutputModel> DeleteProduct(DeleteProductInputModel model)
+        public async Task<DeleteProductOutputModel> DeleteProduct(DeleteProductInputModel modelModel)
         {
-            try
-            {
-                await _productRepository.Delete(model.Id);
+            var validation = new DeleteProductInputModelValidator();
+            var validationResult = validation.Validate(modelModel);
 
-                return new DeleteProductOutputModel
+            if (validationResult.IsValid)
+            {
+                try
                 {
-                    IsSuccess = true,
-                    Message = "Product Added Successfully"
-                };
+                    await _productRepository.Delete(modelModel.Id);
+
+                    return new DeleteProductOutputModel
+                    {
+                        IsSuccess = true,
+                        Message = "Product Added Successfully"
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new DeleteProductOutputModel
+                    {
+                        IsSuccess = false,
+                        Message = ex.Message
+                    };
+                }
             }
-            catch (Exception ex)
+            else
             {
                 return new DeleteProductOutputModel
                 {
                     IsSuccess = false,
-                    Message = ex.Message
+                    Message = validationResult.ToString(),
                 };
             }
         }
 
-        public async Task<UpdateProductOutputModel> UpdateProduct(UpdateProductModel model)
+        public async Task<UpdateProductOutputModel> UpdateProduct(UpdateProductModel inputModel)
         {
-            try
+            var validation = new UpdateProductInputModelValidator();
+
+            var validationResult = validation.Validate(inputModel);
+
+            if (validationResult.IsValid)
             {
-                var product = await _productRepository.GetById(model.Id);
-                
-                product.SetProduct(model.Name, model.Description, model.Price, model.PriceCurrency, model.CategoryId, model.StorageId);
-                
-                await _productRepository.Update(product);
-                return new UpdateProductOutputModel
+                try
                 {
-                    IsSuccess = true,
-                    Message = "Product Updated Successfully"
-                };
+                    var product = await _productRepository.GetById(inputModel.Id);
+
+                    product.SetProduct(inputModel.Name, inputModel.Description, inputModel.Price, inputModel.PriceCurrency, inputModel.CategoryId, inputModel.StorageId);
+
+                    await _productRepository.Update(product);
+                    return new UpdateProductOutputModel
+                    {
+                        IsSuccess = true,
+                        Message = "Product Updated Successfully"
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new UpdateProductOutputModel
+                    {
+                        IsSuccess = false,
+                        Message = ex.InnerException.Message
+                    };
+                }
             }
-            catch (Exception ex)
+            else
             {
                 return new UpdateProductOutputModel
                 {
                     IsSuccess = false,
-                    Message = ex.InnerException.Message
+                    Message = validationResult.ToString()
                 };
             }
         }
