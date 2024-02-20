@@ -7,6 +7,9 @@ namespace ProductManagementAndFinanceApi.Validation.InputModelValidation.Product
     {
         public AddProductInputModelValidator()
         {
+            RuleFor(x => x.Name).NotEmpty().WithMessage("Name can not be empty");
+            RuleFor(x => x.Price).NotEmpty().WithMessage("Price can not be empty");
+            RuleFor(x => x.PriceCurrency).NotEmpty().WithMessage("Price currency can not be empty");
         }
     }
 }

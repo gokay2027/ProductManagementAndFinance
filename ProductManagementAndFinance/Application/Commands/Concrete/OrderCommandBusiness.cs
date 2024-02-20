@@ -1,6 +1,7 @@
 ﻿using Entities.ConcreteEntity;
 using ProductManagementAndFinanceApi.Application.Commands.Abstract;
 using ProductManagementAndFinanceApi.Models.Command.Order;
+using ProductManagementAndFinanceApi.Validation.InputModelValidation.Order;
 using ProductManagementAndFinanceData.Repository.EntityRepository.Abstract;
 
 namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
@@ -18,49 +19,76 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
 
         public async Task<AddOrderOutputModel> AddOrder(AddOrderInputModel inputModel)
         {
-            try
-            {
-                var order = new Order(inputModel.UserId, inputModel.Adress);
+            AddOderInputModelValidator validation = new AddOderInputModelValidator();
+            var validationResult = validation.Validate(inputModel);
 
-                foreach (var productId in inputModel.ProductIds)
+            if (validationResult.IsValid)
+            {
+                try
                 {
-                    var product = await _productRepository.GetById(productId);
-                    order.AddProductToOrder(product);
+                    var order = new Order(inputModel.UserId, inputModel.Adress);
+                    foreach (var productId in inputModel.ProductIds)
+                    {
+                        var product = await _productRepository.GetById(productId);
+                        order.AddProductToOrder(product);
+                    }
+                    await _orderRepository.Add(order);
+                    return new AddOrderOutputModel
+                    {
+                        IsSuccess = true,
+                        Message = "Order has been added successfully"
+                    };
                 }
-                await _orderRepository.Add(order);
-                return new AddOrderOutputModel
+                catch (Exception ex)
                 {
-                    IsSuccess = true,
-                    Message = "Order has been added successfully"
-                };
+                    return new AddOrderOutputModel
+                    {
+                        IsSuccess = false,
+                        Message = ex.Message
+                    };
+                }
             }
-            catch (Exception ex)
+            else
             {
                 return new AddOrderOutputModel
                 {
                     IsSuccess = false,
-                    Message = ex.Message
+                    Message = validationResult.ToString()
                 };
             }
         }
 
         public async Task<DeleteOrderOutputModel> DeleteOrder(DeleteOrderInputModel inputModel)
         {
-            try
-            {
-                await _orderRepository.Delete(inputModel.Id);
+            var validation = new DeleteOrderInputModelValidator();
+            var validationResult = validation.Validate(inputModel);
 
-                return new DeleteOrderOutputModel
+            if (validationResult.IsValid)
+            {
+                try
                 {
-                    Message = "Order has been deleted successfully",
-                    IsSuccess = true
-                };
+                    await _orderRepository.Delete(inputModel.Id);
+
+                    return new DeleteOrderOutputModel
+                    {
+                        Message = "Order has been deleted successfully",
+                        IsSuccess = true
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new DeleteOrderOutputModel
+                    {
+                        Message = ex.Message,
+                        IsSuccess = false
+                    };
+                }
             }
-            catch (Exception ex)
+            else
             {
                 return new DeleteOrderOutputModel
                 {
-                    Message = ex.Message,
+                    Message = validationResult.ToString(),
                     IsSuccess = false
                 };
             }
@@ -68,24 +96,38 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
 
         public async Task<UpdateOrderOutputModel> UpdateOrder(UpdateOrderInputModel inputModel)
         {
-            try
-            {
-                var orderToBeUpdated = await _orderRepository.GetById(inputModel.Id);
-                orderToBeUpdated.UpdateOrder(inputModel.UserId, inputModel.TotalPrice, inputModel.Adress);
-                await _orderRepository.Update(orderToBeUpdated);
+            var validation = new UpdateOrderInputModelValidator();
 
-                return new UpdateOrderOutputModel
+            var validationResult = validation.Validate(inputModel);
+            if (validationResult.IsValid)
+            {
+                try
                 {
-                    IsSuccess = true,
-                    Message = "Order has been Updated Successfully"
-                };
+                    var orderToBeUpdated = await _orderRepository.GetById(inputModel.Id);
+                    orderToBeUpdated.UpdateOrder(inputModel.UserId, inputModel.TotalPrice, inputModel.Adress);
+                    await _orderRepository.Update(orderToBeUpdated);
+
+                    return new UpdateOrderOutputModel
+                    {
+                        IsSuccess = true,
+                        Message = "Order has been Updated Successfully"
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new UpdateOrderOutputModel
+                    {
+                        IsSuccess = false,
+                        Message = ex.Message
+                    };
+                }
             }
-            catch (Exception ex)
+            else
             {
                 return new UpdateOrderOutputModel
                 {
-                    IsSuccess = true,
-                    Message = ex.Message
+                    IsSuccess = false,
+                    Message = validationResult.ToString()
                 };
             }
         }
