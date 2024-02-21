@@ -19,8 +19,4 @@
     <ProjectReference Include="..\ProductManagementAndFinanceData\ProductManagementAndFinanceData.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Validation\InputModelValidation\Storage\" />
-  </ItemGroup>
-
 </Project>
