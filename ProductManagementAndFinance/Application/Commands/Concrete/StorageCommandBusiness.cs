@@ -1,6 +1,7 @@
 ﻿using Entities.ConcreteEntity;
 using ProductManagementAndFinanceApi.Application.Commands.Abstract;
 using ProductManagementAndFinanceApi.Models.Command.Storage;
+using ProductManagementAndFinanceApi.Validation.InputModelValidation.Storage;
 using ProductManagementAndFinanceData.Repository.EntityRepository.Abstract;
 
 namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
@@ -16,66 +17,108 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
 
         public async Task<AddStorageOutputModel> AddStorage(AddStorageInputModel inputModel)
         {
-            try
+            var validation = new AddStorageInputModelValidator();
+            var validationResult = validation.Validate(inputModel);
+
+            if (validationResult.IsValid)
             {
-                var storage = new Storage(inputModel.Adress, inputModel.Name, inputModel.UserId);
-                await _storageRepository.Add(storage);
-                return new AddStorageOutputModel
+                try
                 {
-                    IsSuccess = true,
-                    Message = "Storage Added Successfully"
-                };
+                    var storage = new Storage(inputModel.Adress, inputModel.Name, inputModel.UserId);
+                    await _storageRepository.Add(storage);
+                    return new AddStorageOutputModel
+                    {
+                        IsSuccess = true,
+                        Message = "Storage Added Successfully"
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new AddStorageOutputModel
+                    {
+                        IsSuccess = false,
+                        Message = ex.Message
+                    };
+                }
             }
-            catch (Exception ex)
+            else
             {
                 return new AddStorageOutputModel
                 {
                     IsSuccess = false,
-                    Message = ex.Message
+                    Message = validationResult.ToString()
                 };
             }
         }
 
         public async Task<DeleteStorageOutputModel> DeleteStorage(DeleteStorageInputModel inputModel)
         {
-            try
+            var validation = new DeleteStorageInputModelValidator();
+            var validationResult = validation.Validate(inputModel);
+
+            if (validationResult.IsValid)
             {
-                await _storageRepository.Delete(inputModel.Id);
-                return new DeleteStorageOutputModel
+                try
                 {
-                    IsSuccess = true,
-                    Message = "Storage Deleted Successfully"
-                };
+                    await _storageRepository.Delete(inputModel.Id);
+                    return new DeleteStorageOutputModel
+                    {
+                        IsSuccess = true,
+                        Message = "Storage Deleted Successfully"
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new DeleteStorageOutputModel
+                    {
+                        IsSuccess = false,
+                        Message = ex.Message
+                    };
+                }
             }
-            catch (Exception ex)
+            else
             {
                 return new DeleteStorageOutputModel
                 {
                     IsSuccess = false,
-                    Message = ex.Message
+                    Message = validationResult.ToString()
                 };
             }
         }
 
         public async Task<UpdateStorageOutputModel> UpdateStorage(UpdateStorageInputModel inputModel)
         {
-            try
+            var validation = new UpdateStorageInputModelValidator();
+            var validationResult = validation.Validate(inputModel);
+
+            if (validationResult.IsValid)
             {
-                var storage = await _storageRepository.GetById(inputModel.Id);
-                storage.UpdateStorage(inputModel.Adress, inputModel.Name, inputModel.UserId);
-                await _storageRepository.Update(storage);
-                return new UpdateStorageOutputModel
+                try
                 {
-                    IsSuccess = true,
-                    Message = "Storage Updated Successfully"
-                };
+                    var storage = await _storageRepository.GetById(inputModel.Id);
+                    storage.UpdateStorage(inputModel.Adress, inputModel.Name, inputModel.UserId);
+                    await _storageRepository.Update(storage);
+                    return new UpdateStorageOutputModel
+                    {
+                        IsSuccess = true,
+                        Message = "Storage Updated Successfully"
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new UpdateStorageOutputModel
+                    {
+                        IsSuccess = false,
+                        Message = ex.Message
+                    };
+                }
             }
-            catch (Exception ex)
+            else
             {
                 return new UpdateStorageOutputModel
                 {
                     IsSuccess = false,
-                    Message = ex.Message
+                    Message = validationResult.ToString()
                 };
             }
         }
