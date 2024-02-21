@@ -1,6 +1,7 @@
 ﻿using Entities.ConcreteEntity;
 using ProductManagementAndFinanceApi.Application.Commands.Abstract;
 using ProductManagementAndFinanceApi.Models.Command.Category;
+using ProductManagementAndFinanceApi.Validation.InputModelValidation.Category;
 using ProductManagementAndFinanceData.Repository.EntityRepository.Abstract;
 
 namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
@@ -14,67 +15,109 @@ namespace ProductManagementAndFinanceApi.Application.Commands.Concrete
             _categoryRepository = categoryRepository;
         }
 
-        public async Task<AddCategoryCommandOutputModel> AddCategory(AddCategoryModel model)
+        public async Task<AddCategoryCommandOutputModel> AddCategory(AddCategoryModel inputModel)
         {
-            try
+            var validation = new AddCategoryModelValidator();
+            var validationResult = validation.Validate(inputModel);
+
+            if (validationResult.IsValid)
             {
-                await _categoryRepository.Add(new Category(model.Name, model.Description));
-                return new AddCategoryCommandOutputModel
+                try
                 {
-                    IsSuccess = true,
-                    Message = "Category has been added successfully"
-                };
+                    await _categoryRepository.Add(new Category(inputModel.Name, inputModel.Description));
+                    return new AddCategoryCommandOutputModel
+                    {
+                        IsSuccess = true,
+                        Message = "Category has been added successfully"
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new AddCategoryCommandOutputModel
+                    {
+                        IsSuccess = false,
+                        Message = ex.Message
+                    };
+                }
             }
-            catch (Exception ex)
+            else
             {
                 return new AddCategoryCommandOutputModel
                 {
                     IsSuccess = false,
-                    Message = ex.Message
+                    Message = validationResult.ToString()
                 };
             }
         }
 
-        public async Task<DeleteCategoryCommandOutputModel> DeleteCategory(DeleteCategoryModel model)
+        public async Task<DeleteCategoryCommandOutputModel> DeleteCategory(DeleteCategoryModel inputModel)
         {
-            try
+            var validation = new DeleteCategoryModelValidator();
+            var validationResult = validation.Validate(inputModel);
+
+            if (validationResult.IsValid)
             {
-                await _categoryRepository.Delete(model.Id);
-                return new DeleteCategoryCommandOutputModel
+                try
                 {
-                    IsSuccess = true,
-                    Message = "Category Deleted successfully"
-                };
+                    await _categoryRepository.Delete(inputModel.Id);
+                    return new DeleteCategoryCommandOutputModel
+                    {
+                        IsSuccess = true,
+                        Message = "Category Deleted successfully"
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new DeleteCategoryCommandOutputModel
+                    {
+                        IsSuccess = false,
+                        Message = ex.Message
+                    };
+                }
             }
-            catch (Exception ex)
+            else
             {
                 return new DeleteCategoryCommandOutputModel
                 {
                     IsSuccess = false,
-                    Message = ex.Message
+                    Message = validationResult.ToString()
                 };
             }
         }
 
-        public async Task<UpdateCategoryOutputModel> UpdateCategory(UpdateCategoryModel model)
+        public async Task<UpdateCategoryOutputModel> UpdateCategory(UpdateCategoryModel inputModel)
         {
-            try
+            var validation = new UpdateCategoryModelValidator();
+            var validationResult = validation.Validate(inputModel);
+
+            if (validationResult.IsValid)
             {
-                var categoryModel = await _categoryRepository.GetById(model.Id);
-                categoryModel.UpdateCategory(model.Name, model.Description);
-                await _categoryRepository.Update(categoryModel);
-                return new UpdateCategoryOutputModel
+                try
                 {
-                    IsSuccess = true,
-                    Message = "Category has been updated successfully"
-                };
+                    var categoryModel = await _categoryRepository.GetById(inputModel.Id);
+                    categoryModel.UpdateCategory(inputModel.Name, inputModel.Description);
+                    await _categoryRepository.Update(categoryModel);
+                    return new UpdateCategoryOutputModel
+                    {
+                        IsSuccess = true,
+                        Message = "Category has been updated successfully"
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new UpdateCategoryOutputModel
+                    {
+                        IsSuccess = false,
+                        Message = ex.Message
+                    };
+                }
             }
-            catch (Exception ex)
+            else
             {
                 return new UpdateCategoryOutputModel
                 {
-                    IsSuccess = true,
-                    Message = ex.Message
+                    IsSuccess = false,
+                    Message = validationResult.ToString()
                 };
             }
         }

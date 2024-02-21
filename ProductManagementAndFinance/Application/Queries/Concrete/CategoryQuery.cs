@@ -49,28 +49,38 @@ namespace ProductManagementAndFinance.Application.Queries.Concrete
         public async Task<CategoryListOutputModel> GetCategoriesByFilter(CategorySearchModel searchModel)
         {
             var output = new CategoryListOutputModel();
-
-            try
+            if (searchModel.Name.IsNullOrEmpty() && searchModel.Description.IsNullOrEmpty())
             {
-                var predicate = FilterBuilderForCategory(searchModel);
-                var categoriesList = await _categoryRepository.GetByFilter(predicate);
-
-                foreach (var category in categoriesList)
-                {
-                    output.List.Add(new CategoryListModel
-                    {
-                        Id = category.Id,
-                        Description = category.Description,
-                        Name = category.Name,
-                    });
-                }
-                return output;
+                return await GetAllCategories();
             }
-            catch (Exception ex)
+            else
             {
-                output.IsSuccess = false;
-                output.Message = ex.Message;
-                return output;
+                try
+                {
+                    var predicate = FilterBuilderForCategory(searchModel);
+                    var categoriesList = await _categoryRepository.GetByFilter(predicate);
+
+                    foreach (var category in categoriesList)
+                    {
+                        output.List.Add(new CategoryListModel
+                        {
+                            Id = category.Id,
+                            Description = category.Description,
+                            Name = category.Name,
+                        });
+                    }
+                    output.ItemCount = categoriesList.Count();
+                    output.Message = "Categories Queried Successfully";
+                    output.IsSuccess = true;
+                    return output;
+                }
+                catch (Exception ex)
+                {
+                    output.ItemCount = 0;
+                    output.IsSuccess = false;
+                    output.Message = ex.Message;
+                    return output;
+                }
             }
         }
 
