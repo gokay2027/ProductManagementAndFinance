@@ -25,29 +25,27 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
                 var allOrders = await _orderRepository.GetAllOrdersWithUserAndProducts();
                 foreach (var order in allOrders)
                 {
-
                     List<string> products = new List<string>();
                     float totalprice = 0;
 
-                    foreach(var pr in order.Products)
+                    foreach (var pr in order.Products)
                     {
                         products.Add(pr.Name);
                         totalprice += pr.Price;
                     }
 
-
                     output.OutputList.Add(new OrderListItem
                     {
-                        CustomerNameSurname=order.User.Name+" "+order.User.Surname,
-                        Adress=order.Adress,
-                        ProductNames= products,
-                        TotalPrice=totalprice
+                        CustomerNameSurname = order.User.Name + " " + order.User.Surname,
+                        Adress = order.Adress,
+                        ProductNames = products,
+                        TotalPrice = totalprice
                     });
                 }
                 output.IsSuccess = true;
                 output.Message = "Orders queried successfully";
                 output.ItemCount = output.OutputList.Count;
-                
+
                 return output;
             }
             catch (Exception ex)
@@ -67,7 +65,6 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
                 var filteredOrders = await _orderRepository.GetFilteredOrdersWithUserAndProducts(predicate);
                 foreach (var order in filteredOrders)
                 {
-
                     List<string> products = new List<string>();
                     float totalprice = 0;
 
@@ -76,7 +73,6 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
                         products.Add(pr.Name);
                         totalprice += pr.Price;
                     }
-
 
                     output.OutputList.Add(new OrderListItem
                     {
