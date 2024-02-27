@@ -25,7 +25,7 @@ namespace ProductManagementAndFinance.Application.Commands.Concrete
             {
                 try
                 {
-                    var product = new Product(inputModel.Name, inputModel.Description, inputModel.Price, inputModel.PriceCurrency);
+                    var product = new Product(inputModel.Name, inputModel.Description, inputModel.Price, inputModel.PriceCurrency,inputModel.CategoryId,inputModel.StorageId);
 
                     await _productRepository.Add(product);
 

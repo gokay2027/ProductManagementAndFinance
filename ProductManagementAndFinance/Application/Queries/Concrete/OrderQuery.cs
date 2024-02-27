@@ -19,22 +19,35 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
         public async Task<OrderListOutputModel> GetAllOrders()
         {
             var output = new OrderListOutputModel();
+
             try
             {
                 var allOrders = await _orderRepository.GetAllOrdersWithUserAndProducts();
                 foreach (var order in allOrders)
                 {
+
+                    List<string> products = new List<string>();
+                    float totalprice = 0;
+
+                    foreach(var pr in order.Products)
+                    {
+                        products.Add(pr.Name);
+                        totalprice += pr.Price;
+                    }
+
+
                     output.OutputList.Add(new OrderListItem
                     {
-                        User = order.User,
-                        UserId = order.User.Id,
-                        Adress = order.Adress,
-                        Products = order.Products,
-                        TotalPrice = order.TotalPrice,
+                        CustomerNameSurname=order.User.Name+" "+order.User.Surname,
+                        Adress=order.Adress,
+                        ProductNames= products,
+                        TotalPrice=totalprice
                     });
                 }
                 output.IsSuccess = true;
                 output.Message = "Orders queried successfully";
+                output.ItemCount = output.OutputList.Count;
+                
                 return output;
             }
             catch (Exception ex)
@@ -51,16 +64,26 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
             var predicate = OrderFilterForQuery(searchModel);
             try
             {
-                var allOrders = await _orderRepository.GetFilteredOrdersWithUserAndProducts(predicate);
-                foreach (var order in allOrders)
+                var filteredOrders = await _orderRepository.GetFilteredOrdersWithUserAndProducts(predicate);
+                foreach (var order in filteredOrders)
                 {
+
+                    List<string> products = new List<string>();
+                    float totalprice = 0;
+
+                    foreach (var pr in order.Products)
+                    {
+                        products.Add(pr.Name);
+                        totalprice += pr.Price;
+                    }
+
+
                     output.OutputList.Add(new OrderListItem
                     {
-                        User = order.User,
-                        UserId = order.User.Id,
+                        CustomerNameSurname = order.User.Name + " " + order.User.Surname,
                         Adress = order.Adress,
-                        Products = order.Products,
-                        TotalPrice = order.TotalPrice,
+                        ProductNames = products,
+                        TotalPrice = totalprice
                     });
                 }
                 output.IsSuccess = true;
