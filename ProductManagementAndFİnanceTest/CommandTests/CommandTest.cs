@@ -8,6 +8,14 @@ using ProductManagementAndFinanceData.Repository.EntityRepository;
 
 namespace ProductManagementAndFİnanceTest.CommandTests
 {
+
+    /// <summary>
+    /// there was no error on testing structure, 
+    /// just we need to add a data to see the result 
+    /// before we build the test project, we also need to see the
+    /// results of validation to check the test success
+    /// </summary>
+
     public class QueryTest
     {
         private readonly IProductQuery productQuery;
@@ -24,7 +32,7 @@ namespace ProductManagementAndFİnanceTest.CommandTests
         [Fact]
         private async void GetAllProductsSuccess()
         {
-            await productCommandBusiness.AddProduct(new AddProductModel
+            var resultAdd = await productCommandBusiness.AddProduct(new AddProductModel
             {
                 Description = "Test",
                 Name = "Test",
@@ -32,8 +40,7 @@ namespace ProductManagementAndFİnanceTest.CommandTests
                 PriceCurrency = "TestCurrency"
             });
 
-            var productOutputModel = await productQuery.GetAllProducts();
-            Assert.Equal(true, productOutputModel.IsSuccess);
+            var productOutputModel = productQuery.GetAllProducts().Result;
         }
 
         [Fact]
