@@ -17,7 +17,7 @@ namespace ProductManagementAndFinanceData.Repository.Contract
         public async Task<TEntity> Add(TEntity entity)
         {
             _context.Set<TEntity>().Add(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return entity;
         }

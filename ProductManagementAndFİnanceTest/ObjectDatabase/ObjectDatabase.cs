@@ -6,12 +6,23 @@ namespace ObjectDatabase
 {
     public class ObjectDatabase
     {
-        public static ProductManagementAndFinanceContext GetMemoryContext()
+        private readonly ProductManagementAndFinanceContext productManagementAndFinanceInMemoryContext;
+
+        public ObjectDatabase()
         {
-            var options = new DbContextOptionsBuilder<ProductManagementAndFinanceContext>()
-            .UseInMemoryDatabase(databaseName: "InMemoryDatabase")
-            .Options;
-            return new ProductManagementAndFinanceContext(options);
+            var builder = new DbContextOptionsBuilder<ProductManagementAndFinanceContext>();
+            builder.UseInMemoryDatabase(databaseName: "LibraryDbInMemory");
+
+            var dbContextOptions = builder.Options;
+            productManagementAndFinanceInMemoryContext = new ProductManagementAndFinanceContext(dbContextOptions);
+            // Delete existing db before creating a new one
+            productManagementAndFinanceInMemoryContext.Database.EnsureDeleted();
+            productManagementAndFinanceInMemoryContext.Database.EnsureCreated();
+        }
+
+        public ProductManagementAndFinanceContext GetProductManagementAndFinanceInMemoryContext()
+        {
+            return productManagementAndFinanceInMemoryContext;
         }
     }
 }
