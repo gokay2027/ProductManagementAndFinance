@@ -10,6 +10,10 @@ namespace ProductManagementAndFinanceData
         {
         }
 
+        public ProductManagementAndFinanceContext(DbContextOptions<ProductManagementAndFinanceContext> options) : base(options)
+        {
+        }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -19,7 +23,10 @@ namespace ProductManagementAndFinanceData
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ProductManagementAndFinance;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ProductManagementAndFinance;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

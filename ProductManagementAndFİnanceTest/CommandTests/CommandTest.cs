@@ -1,21 +1,40 @@
+using ObjectDatabase;
+using ProductManagementAndFinance.Application.Queries.Abstract;
+using ProductManagementAndFinance.Application.Queries.Concrete;
+using ProductManagementAndFinanceApi.Models.Query.Product;
+using ProductManagementAndFinanceData;
+using ProductManagementAndFinanceData.Repository.EntityRepository;
+using ProductManagementAndFinanceData.Repository.EntityRepository.Abstract;
+
 namespace ProductManagementAndFİnanceTest.CommandTests
 {
-    public class CommandTest
+    public class QueryTest
     {
+        private readonly IProductQuery productQuery;
 
-
-
-
-        [Theory, InlineData(new object[] { "Diş Fırçası"
-            , "Dişleri fırçalamak için alet"
-            , 22,"USD" })]
-        public void AddProductCommandTest(string name,
-            string description, float price, string priceCurrency)
+        public QueryTest()
         {
+            var context = ObjectDatabase.ObjectDatabase.GetMemoryContext();
+            var productRepository = new ProductRepository(context);
+            productQuery = new ProductQuery(productRepository);
+        }
 
+        [Fact]
+        private async void GetAllProductsSuccess()
+        {
+            var productOutputModel = await productQuery.GetAllProducts();
+            Assert.Equal(true, productOutputModel.IsSuccess);
+        }
 
+        [Fact]
+        private async void GetProductsByFilter()
+        {
+            var searchModel = new ProductSearchModel();
+            searchModel.Price = 10;
+            searchModel.Name = "Diş Fırçası";
 
-
+            var productsOutputModel = await productQuery.GetProductsByFilter(searchModel);
+            Assert.NotEqual(false, productsOutputModel.IsSuccess);
         }
     }
 }
