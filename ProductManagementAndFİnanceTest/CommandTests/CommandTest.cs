@@ -8,10 +8,9 @@ using ProductManagementAndFinanceData.Repository.EntityRepository;
 
 namespace ProductManagementAndFİnanceTest.CommandTests
 {
-
     /// <summary>
-    /// there was no error on testing structure, 
-    /// just we need to add a data to see the result 
+    /// there was no error on testing structure,
+    /// just we need to add a data to see the result
     /// before we build the test project, we also need to see the
     /// results of validation to check the test success
     /// </summary>
