@@ -29,8 +29,9 @@ namespace ProductManagementAndFİnanceTest.CommandTests
         }
 
         [Fact]
-        private async void GetAllProductsSuccess()
+        private async void GetAllProductsFail()
         {
+            //Add result will be ignored by validation
             var resultAdd = await productCommandBusiness.AddProduct(new AddProductModel
             {
                 Description = "Test",
@@ -40,6 +41,9 @@ namespace ProductManagementAndFİnanceTest.CommandTests
             });
 
             var productOutputModel = productQuery.GetAllProducts().Result;
+
+            Assert.False(resultAdd.IsSuccess);
+            Assert.True(productOutputModel.IsSuccess);
         }
 
         [Fact]
@@ -50,7 +54,7 @@ namespace ProductManagementAndFİnanceTest.CommandTests
             searchModel.Name = "Diş Fırçası";
 
             var productsOutputModel = await productQuery.GetProductsByFilter(searchModel);
-            Assert.NotEqual(false, productsOutputModel.IsSuccess);
+            Assert.True(productsOutputModel.IsSuccess);
         }
     }
 }
