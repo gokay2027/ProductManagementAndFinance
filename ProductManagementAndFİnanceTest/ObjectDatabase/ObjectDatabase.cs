@@ -41,23 +41,23 @@ namespace ObjectDatabase
             };
 
             productManagementAndFinanceInMemoryContext.Categories.AddRange(categoryList);
-
+            productManagementAndFinanceInMemoryContext.SaveChanges();
             var userList = new List<User>()
             {
                 new User("gokay123", "Gökay", "Dinç", "gokay123@gmail.com", "1234"),
                 new User("ayse123", "Ayşe", "AyşeOğlu", "ayse123@gmail.com", "12345"),
-                 new User("mehmet123", "Mehmet", "MehmetOğlu", "mehet123@gmail.com", "123456")
+                new User("mehmet123", "Mehmet", "MehmetOğlu", "mehet123@gmail.com", "123456")
             };
 
             productManagementAndFinanceInMemoryContext.Users.AddRange(userList);
-
+            productManagementAndFinanceInMemoryContext.SaveChanges();
             var storageList = new List<Storage>()
             {
-                new Storage("Alsancak Gül sokak, 22/35 no:2","Gökay Storage", productManagementAndFinanceInMemoryContext.Users.First(a=>a.Email.Equals("gokay123@gmail.com")).Id)
+                new Storage("Alsancak Gül sokak, 22/35 no:2", "Gökay Storage", productManagementAndFinanceInMemoryContext.Users.First(a => a.Password.Equals("1234")).Id)
             };
 
             productManagementAndFinanceInMemoryContext.Storages.AddRange(storageList);
-
+            productManagementAndFinanceInMemoryContext.SaveChanges();
             var productList = new List<Product>()
             {
                 new Product("Monster T5", "Monster tulpar t5 laptop", 1500, "USD"
@@ -81,7 +81,6 @@ namespace ObjectDatabase
             };
 
             productManagementAndFinanceInMemoryContext.Products.AddRange(productList);
-
             productManagementAndFinanceInMemoryContext.SaveChanges();
         }
     }
