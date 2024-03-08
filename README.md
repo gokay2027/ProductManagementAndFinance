@@ -16,7 +16,7 @@ Additional Note: The technology, libaries and patterns i used were learnt from t
 
 Libraries which were used
 - ASP.NET Core
-- EntityFrameworkCore
+- Entity Framework Core
 - LinqKit (Filter builder)
 - FluentValidation
 - ClosedXML
