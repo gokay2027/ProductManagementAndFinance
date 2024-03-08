@@ -114,5 +114,12 @@ namespace ProductManagementAndFİnanceTest.CommandTests
             Assert.True(storages.IsSuccess);
             Assert.NotEmpty(storages.OutputList);
         }
+
+        [Fact]
+        private async Task GetAllOrders()
+        {
+            var allOrders = await orderQuery.GetAllOrders();
+            Assert.True(allOrders.IsSuccess);
+        }
     }
 }
