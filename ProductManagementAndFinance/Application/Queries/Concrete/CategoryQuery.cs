@@ -90,7 +90,7 @@ namespace ProductManagementAndFinance.Application.Queries.Concrete
 
             if (!searchModel.Name.IsNullOrEmpty())
             {
-                predicate.And(a => a.Name.Contains(searchModel.Name));
+                predicate.And(a => a.Name.ToLower().Contains(searchModel.Name.ToLower()));
             }
 
             if (!searchModel.Description.IsNullOrEmpty())

@@ -39,7 +39,7 @@ namespace ProductManagementAndFinanceApi.Application.Queries.Concrete
                     }
                     else
                     {
-                        var loggedinUSer = user.ElementAt(0);
+                        var loggedinUSer = user.First();
                         return new UserLoginOutputModel
                         {
                             Data = new UserBaseModel
