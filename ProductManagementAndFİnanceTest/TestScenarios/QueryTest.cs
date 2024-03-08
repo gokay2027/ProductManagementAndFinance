@@ -4,6 +4,7 @@ using ProductManagementAndFinanceApi.Application.Queries.Abstract;
 using ProductManagementAndFinanceApi.Application.Queries.Concrete;
 using ProductManagementAndFinanceApi.Models.Query.Category;
 using ProductManagementAndFinanceApi.Models.Query.Product;
+using ProductManagementAndFinanceApi.Models.Query.Storage;
 using ProductManagementAndFinanceApi.Models.Query.User;
 using ProductManagementAndFinanceData.Repository.EntityRepository;
 
@@ -50,7 +51,7 @@ namespace ProductManagementAndFİnanceTest.CommandTests
         }
 
         [Fact]
-        private async Task GetProductsByFilter()
+        private async Task GetProductsByFilterSuccess()
         {
             var searchModel = new ProductSearchModel();
             searchModel.Price = 10;
@@ -61,7 +62,7 @@ namespace ProductManagementAndFİnanceTest.CommandTests
         }
 
         [Fact]
-        private async Task GetAllCategories()
+        private async Task GetAllCategoriesSuccess()
         {
             var allCategories = await categoryQuery.GetAllCategories();
             Assert.True(allCategories.IsSuccess);
@@ -92,6 +93,26 @@ namespace ProductManagementAndFİnanceTest.CommandTests
             var user = await userQuery.Login(loginModel);
             Assert.NotNull(user.Data);
             Assert.True(user.IsSuccess);
+        }
+
+        [Fact]
+        private async Task GetAllStoragesSuccess()
+        {
+            var storages = await storageQuery.GetAllStorages();
+            Assert.True(storages.IsSuccess);
+            Assert.NotEmpty(storages.OutputList);
+        }
+
+        [Fact]
+        private async Task GetStoargesByFilterSuccess()
+        {
+            var storageSearchModel = new StorageSearchModel
+            {
+                Name = "Gökay st"
+            };
+            var storages = await storageQuery.GetStoragesByFilter(storageSearchModel);
+            Assert.True(storages.IsSuccess);
+            Assert.NotEmpty(storages.OutputList);
         }
     }
 }
