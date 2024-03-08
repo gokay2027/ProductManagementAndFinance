@@ -9,8 +9,8 @@ namespace ProductManagementAndFinanceData.Configurations
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(e => e.Id);
-            builder.HasIndex(e => e.UserName).IsUnique();
-            builder.HasIndex(e => e.Email).IsUnique();
+            builder.HasIndex(e => e.UserName).IsUnique(true);
+            builder.HasIndex(e => e.Email).IsUnique(true);
         }
     }
 }

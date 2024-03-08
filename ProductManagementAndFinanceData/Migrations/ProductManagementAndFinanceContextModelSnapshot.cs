@@ -47,7 +47,7 @@ namespace ProductManagementAndFinanceData.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Entities.ConcreteEntity.Finance", b =>
@@ -82,7 +82,7 @@ namespace ProductManagementAndFinanceData.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Finances");
+                    b.ToTable("Finances", (string)null);
                 });
 
             modelBuilder.Entity("Entities.ConcreteEntity.Order", b =>
@@ -114,7 +114,7 @@ namespace ProductManagementAndFinanceData.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Entities.ConcreteEntity.Product", b =>
@@ -164,7 +164,7 @@ namespace ProductManagementAndFinanceData.Migrations
 
                     b.HasIndex("StorageId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Entities.ConcreteEntity.Storage", b =>
@@ -197,7 +197,7 @@ namespace ProductManagementAndFinanceData.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Storages");
+                    b.ToTable("Storages", (string)null);
                 });
 
             modelBuilder.Entity("Entities.ConcreteEntity.User", b =>
@@ -246,7 +246,7 @@ namespace ProductManagementAndFinanceData.Migrations
                     b.HasIndex("UserName")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Entities.ConcreteEntity.Finance", b =>
