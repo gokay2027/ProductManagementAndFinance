@@ -139,7 +139,5 @@ namespace ProductManagementAndFinanceTest.TestScenarios
 
             Assert.True(categoryDeleteResult.IsSuccess);
         }
-
-
     }
 }
