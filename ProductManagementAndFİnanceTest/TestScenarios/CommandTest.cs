@@ -1,11 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore.InMemory.Storage.Internal;
 using ProductManagementAndFinance.Application.Commands.Abstract;
 using ProductManagementAndFinance.Application.Commands.Concrete;
+using ProductManagementAndFinance.Application.Queries.Abstract;
+using ProductManagementAndFinance.Application.Queries.Concrete;
 using ProductManagementAndFinance.Models.Command.Product;
 using ProductManagementAndFinanceApi.Application.Commands.Abstract;
 using ProductManagementAndFinanceApi.Application.Commands.Concrete;
 using ProductManagementAndFinanceApi.Application.Queries.Abstract;
 using ProductManagementAndFinanceApi.Application.Queries.Concrete;
+using ProductManagementAndFinanceApi.Models.Command.Category;
 using ProductManagementAndFinanceApi.Models.Command.User;
 using ProductManagementAndFinanceData.Repository.EntityRepository;
 using System;
@@ -24,6 +27,8 @@ namespace ProductManagementAndFinanceTest.TestScenarios
         private readonly IOrderCommandBusiness orderCommandBusiness;
         private readonly IUserCommandBusiness userCommandBusiness;
 
+        private readonly ICategoryQuery categoryQuery;
+
         public CommandTest()
         {
             var objectDatabase = new ObjectDatabase.ObjectDatabase();
@@ -40,10 +45,12 @@ namespace ProductManagementAndFinanceTest.TestScenarios
             storageCommandBusiness = new StorageCommandBusiness(storageRepository);
             orderCommandBusiness = new OrderCommandBusiness(orderRepository, productRepository);
             userCommandBusiness = new UserCommandBusiness(userRepository);
+
+            categoryQuery = new CategoryQuery(categoryRepository);
         }
 
         [Fact]
-        private async Task RegisterUserSuccess()
+        private async Task RegisterUserSuccessTest()
         {
             var newUserModel = new UserAddInputModel()
             {
@@ -59,7 +66,7 @@ namespace ProductManagementAndFinanceTest.TestScenarios
         }
 
         [Fact]
-        private async Task RegisterUserFail()
+        private async Task RegisterUserFailTest()
         {
             var newUserModel = new UserAddInputModel()
             {
@@ -75,7 +82,7 @@ namespace ProductManagementAndFinanceTest.TestScenarios
         }
 
         [Fact]
-        private async Task AddProductSuccess()
+        private async Task AddProductSuccessTest()
         {
             var addProductResult = await productCommandbusiness.AddProduct(new AddProductModel
             {
@@ -91,7 +98,7 @@ namespace ProductManagementAndFinanceTest.TestScenarios
         }
 
         [Fact]
-        private async Task AddProductFail()
+        private async Task AddProductFailTest()
         {
             var addProductResult = await productCommandbusiness.AddProduct(new AddProductModel
             {
@@ -105,5 +112,34 @@ namespace ProductManagementAndFinanceTest.TestScenarios
 
             Assert.False(addProductResult.IsSuccess);
         }
+
+        [Fact]
+        private async Task AddCategorySuccessTest()
+        {
+            var categoryAddResult = await categoryCommandBusiness.AddCategory(new AddCategoryModel
+            {
+                Name = "Test Category",
+                Description = "Test category description"
+            });
+            Assert.True(categoryAddResult.IsSuccess);
+        }
+
+        [Fact]
+        private async Task DeleteCategorySuccessTest()
+        {
+            var categoryToBeDeleted = await categoryQuery.GetCategoriesByFilter(new ProductManagementAndFinanceApi.Models.Query.Category.CategorySearchModel
+            {
+                Name = "Sağlık"
+            });
+
+            var categoryDeleteResult = await categoryCommandBusiness.DeleteCategory(new DeleteCategoryModel
+            {
+                Id = categoryToBeDeleted.List.First().Id
+            });
+
+            Assert.True(categoryDeleteResult.IsSuccess);
+        }
+
+
     }
 }
