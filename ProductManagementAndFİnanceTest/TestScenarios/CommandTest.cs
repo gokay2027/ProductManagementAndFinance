@@ -5,8 +5,12 @@ using ProductManagementAndFinance.Application.Queries.Concrete;
 using ProductManagementAndFinance.Models.Command.Product;
 using ProductManagementAndFinanceApi.Application.Commands.Abstract;
 using ProductManagementAndFinanceApi.Application.Commands.Concrete;
+using ProductManagementAndFinanceApi.Application.Queries.Abstract;
+using ProductManagementAndFinanceApi.Application.Queries.Concrete;
 using ProductManagementAndFinanceApi.Models.Command.Category;
+using ProductManagementAndFinanceApi.Models.Command.Storage;
 using ProductManagementAndFinanceApi.Models.Command.User;
+using ProductManagementAndFinanceApi.Models.Query.Storage;
 using ProductManagementAndFinanceData.Repository.EntityRepository;
 
 namespace ProductManagementAndFinanceTest.TestScenarios
@@ -20,6 +24,8 @@ namespace ProductManagementAndFinanceTest.TestScenarios
         private readonly IUserCommandBusiness userCommandBusiness;
 
         private readonly ICategoryQuery categoryQuery;
+        private readonly IStorageQuery storageQuery;
+        private readonly IProductQuery productQuery;
 
         public CommandTest()
         {
@@ -39,6 +45,8 @@ namespace ProductManagementAndFinanceTest.TestScenarios
             userCommandBusiness = new UserCommandBusiness(userRepository);
 
             categoryQuery = new CategoryQuery(categoryRepository);
+            storageQuery = new StorageQuery(storageRepository, productRepository);
+            productQuery = new ProductQuery(productRepository);
         }
 
         [Fact]
@@ -130,6 +138,37 @@ namespace ProductManagementAndFinanceTest.TestScenarios
             });
 
             Assert.True(categoryDeleteResult.IsSuccess);
+        }
+
+        [Fact]
+        private async Task AddStorageSuccessTest()
+        {
+            var storageAddResult = await storageCommandBusiness.AddStorage(new AddStorageInputModel
+            {
+                Adress = "Ankara çankaya ali caddesi",
+                Name = "Ankarali deposu",
+                UserId = Guid.NewGuid(),
+            });
+
+            Assert.True(storageAddResult.IsSuccess);
+        }
+
+        [Fact]
+        private async Task DeleteStorage()
+        {
+            var storageresult = await storageQuery.GetStoragesByFilter(new StorageSearchModel
+            {
+                Name = "Gökay Stor",
+            });
+
+            var storage = storageresult.OutputList.First();
+
+            var deleteResult = await storageCommandBusiness.DeleteStorage(new DeleteStorageInputModel
+            {
+                Id = storage.Id
+            });
+
+            Assert.True(deleteResult.IsSuccess);
         }
     }
 }
