@@ -1,21 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore.InMemory.Storage.Internal;
-using ProductManagementAndFinance.Application.Commands.Abstract;
+﻿using ProductManagementAndFinance.Application.Commands.Abstract;
 using ProductManagementAndFinance.Application.Commands.Concrete;
 using ProductManagementAndFinance.Application.Queries.Abstract;
 using ProductManagementAndFinance.Application.Queries.Concrete;
 using ProductManagementAndFinance.Models.Command.Product;
 using ProductManagementAndFinanceApi.Application.Commands.Abstract;
 using ProductManagementAndFinanceApi.Application.Commands.Concrete;
-using ProductManagementAndFinanceApi.Application.Queries.Abstract;
-using ProductManagementAndFinanceApi.Application.Queries.Concrete;
 using ProductManagementAndFinanceApi.Models.Command.Category;
 using ProductManagementAndFinanceApi.Models.Command.User;
 using ProductManagementAndFinanceData.Repository.EntityRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProductManagementAndFinanceTest.TestScenarios
 {
