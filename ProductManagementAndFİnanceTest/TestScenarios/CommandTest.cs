@@ -170,5 +170,35 @@ namespace ProductManagementAndFinanceTest.TestScenarios
 
             Assert.True(deleteResult.IsSuccess);
         }
+
+        [Fact]
+        private async Task UpdateStorage()
+        {
+            var storageresult = await storageQuery.GetStoragesByFilter(new StorageSearchModel
+            {
+                Name = "Gökay Stor",
+            });
+
+            var storage = storageresult.OutputList.First();
+
+            var upmodel = new UpdateStorageInputModel
+            {
+                Id = storage.Id,
+                Adress = storage.Adress,
+                Name = "GÖKAYY DEPO",
+                UserId = storage.UserId
+            };
+            var updateResult = await storageCommandBusiness.UpdateStorage(upmodel);
+
+            var storageUpdatedresult = await storageQuery.GetStoragesByFilter(new StorageSearchModel
+            {
+                Name = "GÖKAYY DEPO",
+            });
+
+            var storageUpdated = storageUpdatedresult.OutputList.First();
+
+            Assert.True(updateResult.IsSuccess);
+            Assert.Equal("GÖKAYY DEPO", storageUpdated.Name);
+        }
     }
 }
